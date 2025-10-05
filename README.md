@@ -1,2 +1,3 @@
 # DRC-deforestion
-This project analyze the risks and possible consequences of the global expansion of DRC cities since DRC host over 60% of the total equatorial forest of africa which is the second biggest forest after amazonie in brazil which make us responsible for both the security of our own country but also the world . 
+we're Green kin a team composed of software engeneering and polythecnics student also graphic designers, we're passionate about technology and how to solve problems by using it.
+This project analyze the risks and possible consequences of the global expansion of DRC cities since DRC host over 60% of the total equatorial forest of africa which is the second biggest forest after amazonie in brazil which make us responsible for both the security of our own country but also the world . we want to warn people about the risks and to educate them to make them responsible of their own future and the future of their communities.
