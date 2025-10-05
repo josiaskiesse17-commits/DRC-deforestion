@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deforestation & Urban Growth in DRC</title>
+<style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; color:#333; }
+    header, section, footer { padding:20px; margin:10px; background:white; border-radius:8px; }
+    h1,h2,h3 { color:#2c3e50; }
+    canvas { max-width:100%; margin-top:15px; }
+    iframe { border:none; border-radius:8px; }
+    ul { line-height:1.6; }
+    footer { text-align:center; font-size:0.9em; background:#2c3e50; color:white; border-radius:0; }
+    .img-comp-container { position:relative; height:400px; max-width:100%; overflow:hidden; margin-top:15px; border-radius:8px; }
+    .img-comp-img { position:absolute; width:auto; height:100%; overflow:hidden; }
+    .img-comp-img img { display:block; height:100%; object-fit:cover; }
+    .img-comp-slider { position:absolute; z-index:9; cursor: ew-resize; width:4px; background-color:#0077c2; opacity:0.7; height:100%; }
+    #plant-trees input, #project-loss input { width:80px; padding:5px; margin-right:10px; }
+    #plant-trees button, #project-loss button { padding:5px 10px; background-color:#0077c2; color:white; border:none; border-radius:4px; cursor:pointer; }
+    #plant-trees p, #project-loss p { margin-top:10px; font-weight:bold; }
+    .slideshow-container { position:relative; width:100%; max-width:100%; height:400px; margin-top:15px; border-radius:8px; overflow:hidden; }
+    .slideshow-container img { width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition: opacity 1s ease-in-out; }
+    .slideshow-container img.active { opacity:1; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌍 DRC cities Urban Growth & Deforestation</h1>
+<p>Tracking how urban growth, charcoal production, uncontrolled agriculture, and climate change impact the Congo Basin forests.</p>
+</header>
+
+<section id="urban-growth">
+<h2>🏙️ Urban Growth</h2>
+<div class="img-comp-container">
+  <div class="img-comp-img"><img src="https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79276/congo_tm5_1999044_lrg.jpg" alt="Kinshasa 2000"></div>
+  <div class="img-comp-img img-comp-overlay"><img src="https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79276/congo_tm5_2008245.jpg" alt="Kinshasa 2020"></div>
+</div>
+    <p style="font-size:0.9em; color:#555;">Rapid urban expansion leads to habitat loss, flooding risk, and reduced forest cover around cities , these images shows the expansion of beni city which is just next to the virunga national park,
+      the expension of the city represent a real threat to the park and all the animals living there since the city growth means more industries , more cars , more artificial light all the time , day and night. in short more pollution and the city expansion may reach the bounderies of the park causing deforestion and loss of habitat for different animals which could lead to species extinction. </p>
+    <p style="font-size:0.8em; color:#555;">Source: NASA Earth Observatory <a href="https://earthobservatory.nasa.gov/images" target="_blank">link</a></p>
+    </section>
+
+<section id="charcoal-fabric">
+<h2>🔥 Charcoal Production</h2>
+<div class="slideshow-container">
+  <img src="https://imgs.mongabay.com/wp-content/uploads/sites/20/2024/12/04171407/52663850607_3f7f52e3cd_k-768x512-1.jpg" class="active" alt="Charcoal making in DRC - kiln process">
+  <img src="https://imgs.mongabay.com/wp-content/uploads/sites/20/2024/12/04171404/51221341174_e71f331212_k-768x512-1.jpg" alt="Charcoal production in Congo - aerial view">
+  <img src="https://congoinconversation.fondationcarmignac.com/media/pages/reportages/le-charbon-de-bois-entre-trafic-et-precarite-guerchom-ndebo/0804ff5bb1-1666087220/virunga-rdc-charcoal-guerchom-ndebo-carmignac-5-2000x.jpg" alt="Deforestation from charcoal harvesting">
+</div>
+    <p style="font-size:0.9em; color:#555;">Charcoal is a primary fuel source but a major driver of deforestation. Sustainable energy alternatives are essential. DRC cities are highly dependent of fossile ressources in this case charcoal which is mainly issued for preparing food .
+      unfortunately hundreds of trees are been cut down to meet the needs of the cities , like kinshasa the capital has over 17 000 000 citizens and ranked among the fastest growing cities in terms of citizens and will likely reach 60 000 000 citizens by 2100 if nothing is done to find more ecological ressources all the forest around kinshsa and even kongo central will be cleared </p>
+    <p style="font-size:0.8em; color:#555;">Source: FAO, Global Forest Watch <a href="https://www.globalforestwatch.org/" target="_blank">link</a></p>
+    </section>
+
+<section id="uncontrolled-agriculture">
+<h2>🌾 Uncontrolled Agriculture</h2>
+<div class="slideshow-container">
+  <img src="https://eoimages.gsfc.nasa.gov/images/imagerecords/39000/39476/CentralAfrica_AMO_2009201.jpg" class="active" alt="Agricultural expansion in Congo Basin">
+  <img src="https://www.nasa.gov/wp-content/uploads/2023/03/angola_0.jpg" alt="hectares of forest burned for agriculture">
+  <img src="https://media.gettyimages.com/id/174624338/photo/global-warming.jpg?s=612x612&w=0&k=20&c=70D0OK0H1QN6bSw1ivggdtiq9E_IXkh5nbRYcYv3u_0=" alt="Forest converted to farmland">
+</div>
+<p style="font-size:0.9em; color:#555;">Expansion of farmland without planning accelerates forest loss, soil erosion, and biodiversity decline. hundreds of trees and all kind of plants are burned for agricultural purposes without any consideration of endengered species of both plants and animal by destroying their habitats.</p>
+<p style="font-size:0.8em; color:#555;">Source: NASA Earth Observatory <a href="https://earthobservatory.nasa.gov/images/147864/agriculture-expansion" target="_blank">link</a></p>
+</section>
+
+<section id="deforestation">
+<h2>🌳 Deforestation in the Congo Basin</h2>
+<div class="slideshow-container">
+  <img src="https://content.globalforestwatch.org/wp-content/uploads/2020/03/29572479458_bbcba39cbf_k.jpg" class="active" alt="Congo deforestation satellite view">
+  <img src="" alt="https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79276/congo_tm5_1999044.jpg">
+  <img src="https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79276/congo_tm5_2008245.jpg" alt="Rapid tree cover loss Congo Basin">
+</div>
+<p style="font-size:0.9em; color:#555;"> satellite view of deforestation near the virunga national park caused by the expansion of Beni city .</p>
+<p style="font-size:0.8em; color:#555;">Source: NASA Earth Observatory <a href="https://earthobservatory.nasa.gov/images/146046/kinshasa-growth" target="_blank">link</a></p>
+<iframe src="https://www.globalforestwatch.org/dashboards/country/COD/" width="100%" height="600"></iframe>
+<p> Real time visual deforestion state of the equatorial forest, datas by the global forest watch </p>
+</section>
+
+<section id="consequences">
+<h2>⚠️ Environmental Consequences</h2>
+
+<h3>🌊 Floods</h3>
+<img src="https://th.bing.com/th/id/OIP.Hd1Pp3hNlOLecn_a2fdMMwHaFE?w=234&h=180&c=7&r=0&o=7&cb=12&dpr=1.5&pid=1.7&rm=3" alt="Floods in Kinshasa" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<p>floods are more and more common in kinshasa and one of the reason is the lack of trees for retention of water , people are cutting down trees to build houses , water flows directly to rivers and streams which cause floods .</p>
+<canvas id="floodChart"></canvas>
+<p style="font-size:0.8em; color:#555;">Source: NASA & NOAA <a href="https://www.noaa.gov/" target="_blank">link</a></p>
+
+<h3>🌡️ Temperature Rise</h3>
+<canvas id="tempChart"></canvas>
+<p style="font-size:0.8em; color:#555;">Source: NASA GISS <a href="https://data.giss.nasa.gov/" target="_blank">link</a></p>
+
+<h3>🌳 Forest Loss</h3>
+<canvas id="forestChart"></canvas>
+<p style="font-size:0.8em; color:#555;">Source: Global Forest Watch <a href="https://www.globalforestwatch.org/" target="_blank">link</a></p>
+
+<h3>📉 Projected Forest Loss</h3>
+<div id="project-loss">
+<p>Enter number of years ahead to project forest loss:</p>
+<input type="number" id="yearsAhead" placeholder="Years ahead">
+<button onclick="calculateFutureLoss()">Show Projection</button>
+<canvas id="futureForestChart" style="margin-top:15px;"></canvas>
+<p id="futureLossResult"></p>
+<p style="font-size:0.8em; color:#555;">Source: Global Forest Watch, NASA Earth Observatory</p>
+</div>
+
+<h3>🦏 Endangered Animals</h3>
+<img src="https://a-z-animals.com/media/2022/11/shutterstock_500981995-2048x1379.jpeg" alt="Endangered species in Congo" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<canvas id="animalChart"></canvas>
+<p style="font-size:0.8em; color:#555;">Source: IUCN Red List <a href="https://www.iucnredlist.org/" target="_blank">link</a></p>
+
+<h3>💧 Water Problems</h3>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Kinshasa_water_source.jpg" alt="Water scarcity in DRC" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<canvas id="waterChart"></canvas>
+<p>Trees responsable of retening water are not present </p>
+<p style="font-size:0.8em; color:#555;">Source: UNICEF DRC <a href="https://www.unicef.org/drcongo/" target="_blank">link</a></p>
+</section>
+
+<section id="charcoal">
+<h2>🔥 Charcoal Production & Deforestation</h2>
+<canvas id="charcoalChart"></canvas>
+<p style="font-size:0.8em; color:#555;">Source: FAO & Global Forest Watch <a href="https://www.globalforestwatch.org/" target="_blank">link</a></p>
+</section>
+
+<section id="solutions">
+<h2>🌱 Solutions</h2>
+<div>
+<h3>🌳 Support Reforestation</h3>
+<img src="https://www.green.earth/hs-fs/hubfs/DRC%20Save%20the%20Forest%20Project_bullet%20point%202-min.png?width=1800&height=1050&name=DRC%20Save%20the%20Forest%20Project_bullet%20point%202-min.png" alt="Reforestation" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<p>Planting trees restores forest cover, protects biodiversity, and reduces floods.</p>
+</div>
+<div>
+<h3>⚡ Renewable Energy Alternatives</h3>
+<img src="https://tse2.mm.bing.net/th/id/OIP.2Y2mRiwYUR0myieTBSmpXAHaEJ?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Renewable Energy" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<p> DRC has a huge potential for Renewable energy sources , we have the second most powerfull river in the world , the congo river . Also the inga dam one of the most powerfull and has the potential to become the most powerfull dam in africa ,
+  if the project is complete the country will be less dependant of fossile ressources , also high potential for solar and wind energy denpending on provinces , these alternatives will preserve forests.</p>
+</div>
+<div>
+<h3>📚 Educate Communities</h3>
+<img src="https://th.bing.com/th/id/OIP.16u13gczTQeTzX-ksNUuHAHaFj?w=252&h=189&c=7&r=0&o=7&cb=12&dpr=1.5&pid=1.7&rm=3" alt="Community Education" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<p>Teaching climate resilience and conservation empowers communities to protect the environment.</p>
+</div>
+<div>
+<h3>🏗️ Green Infrastructure</h3>
+<img src="https://tse1.mm.bing.net/th/id/OIP.k7cUoO64BHK05aqkmmB0XAHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" style="max-width:100%; border-radius:8px; margin-top:10px;">
+<p>Parks, urban forests, and sustainable city planning reduce environmental stress and improve quality of life.</p>
+</div>
+
+<div id="plant-trees">
+<p>🌳 If every person plants trees, how much forest can we restore?</p>
+<input type="number" id="treesPerPerson" placeholder="Trees per person">
+<button onclick="calculateTrees()">Calculate</button>
+<p id="treeResult"></p>
+</div>
+</section>
+
+<footer>
+<p>NASA Space Apps Challenge 2025 | Team Kinshasa Green</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const kinshasaPopulation = 15000000;
+const totalForestHectares = 200000;
+const yearsData = [2000,2005,2010,2015,2020,2025];
+const forestCoverData=[40,35,30,22,15,10];
+
+// Charts
+new Chart(document.getElementById('floodChart').getContext('2d'), { type:'line', data:{ labels:yearsData, datasets:[{label:'Number of Flood Events', data:[2,3,5,6,8,10], borderColor:'blue', backgroundColor:'rgba(0,0,255,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+new Chart(document.getElementById('tempChart').getContext('2d'), { type:'line', data:{ labels:yearsData, datasets:[{label:'Avg Temp (°C)', data:[24.5,25,25.3,25.7,26.1,26.6], borderColor:'red', backgroundColor:'rgba(255,0,0,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+new Chart(document.getElementById('forestChart').getContext('2d'), { type:'line', data:{ labels:yearsData, datasets:[{label:'Forest Cover (%)', data:forestCoverData, borderColor:'green', backgroundColor:'rgba(0,128,0,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+new Chart(document.getElementById('charcoalChart').getContext('2d'), { type:'bar', data:{ labels:yearsData, datasets:[{label:'Charcoal Use (Million Tons)', data:[2,3,4,5.5,7,8.5], backgroundColor:'rgba(100,60,20,0.7)', borderColor:'rgb(60,30,10)', borderWidth:1}]}, options:{responsive:true} });
+new Chart(document.getElementById('animalChart').getContext('2d'), { type:'line', data:{ labels:yearsData, datasets:[{label:'Population of Selected Species', data:[5000,4500,3800,3200,2500,1800], borderColor:'purple', backgroundColor:'rgba(128,0,128,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+new Chart(document.getElementById('waterChart').getContext('2d'), { type:'line', data:{ labels:yearsData, datasets:[{label:'% of Population with Access to Clean Water', data:[70,68,65,60,55,50], borderColor:'teal', backgroundColor:'rgba(0,128,128,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+
+// Image comparison
+function initComparisons() {
+  var x = document.getElementsByClassName("img-comp-overlay");
+  for (var i=0;i<x.length;i++){compareImages(x[i]);}
+  function compareImages(img){
+    var w = img.offsetWidth, clicked=0;
+    img.style.width=(w/2)+"px";
+    var slider=document.createElement("DIV");
+    slider.setAttribute("class","img-comp-slider");
+    img.parentElement.insertBefore(slider,img);
+    slider.style.top=0;
+    slider.style.left=(w/2)-(slider.offsetWidth/2)+"px";
+    slider.addEventListener("mousedown",slideReady);
+    window.addEventListener("mouseup",slideFinish);
+    slider.addEventListener("touchstart",slideReady);
+    window.addEventListener("touchend",slideFinish);
+    function slideReady(e){e.preventDefault();clicked=1;window.addEventListener("mousemove",slideMove);window.addEventListener("touchmove",slideMove);}
+    function slideFinish(){clicked=0;}
+    function slideMove(e){if(clicked==0)return false;var pos=getCursorPos(e);if(pos<0)pos=0;if(pos>w)pos=w;slide(pos);}
+    function getCursorPos(e){e=(e.changedTouches)?e.changedTouches[0]:e;var a=img.getBoundingClientRect();var x=e.pageX-a.left;return x-window.pageXOffset;}
+    function slide(x){img.style.width=x+"px";slider.style.left=img.offsetWidth-(slider.offsetWidth/2)+"px";}
+  }
+}
+window.onload=initComparisons;
+
+// Slideshows
+function startSlideshows(){
+  const slideshows=document.querySelectorAll(".slideshow-container");
+  slideshows.forEach(slideshow=>{
+    const imgs=slideshow.querySelectorAll("img");
+    let i=0;
+    setInterval(()=>{
+      imgs[i].classList.remove("active");
+      i=(i+1)%imgs.length;
+      imgs[i].classList.add("active");
+    },5000);
+  });
+}
+startSlideshows();
+
+// Tree calculator
+function calculateTrees(){
+  const treesPerPerson=document.getElementById('treesPerPerson').value;
+  if(!treesPerPerson||treesPerPerson<=0){alert('Please enter a valid number.');return;}
+  const totalTrees=kinshasaPopulation*parseInt(treesPerPerson);
+  const hectaresRecovered=(totalTrees/1000).toFixed(2);
+  document.getElementById('treeResult').innerText=
+    `If each person plants ${treesPerPerson} trees, Kinshasa will have approximately ${totalTrees.toLocaleString()} new trees, restoring about ${hectaresRecovered} hectares of forest.`;
+}
+
+// Future forest loss projection
+let futureChart;
+function calculateFutureLoss(){
+  const yearsAhead=document.getElementById('yearsAhead').value;
+  if(!yearsAhead||yearsAhead<=0){alert('Please enter a valid number.');return;}
+  let lastIndex=forestCoverData.length-1;
+  let firstIndex=0;
+  let yearsSpan=yearsData[lastIndex]-yearsData[firstIndex];
+  let percentLoss=forestCoverData[firstIndex]-forestCoverData[lastIndex];
+  let annualLossPercent=percentLoss/yearsSpan;
+  let projectedYears=[], projectedCover=[];
+  for(let y=1; y<=yearsAhead; y++){
+    projectedYears.push(2025+y);
+    let cover=forestCoverData[lastIndex]-annualLossPercent*y;
+    if(cover<0) cover=0;
+    projectedCover.push(cover);
+  }
+  let hectaresLost = totalForestHectares*(forestCoverData[lastIndex]/100-projectedCover[projectedCover.length-1]/100);
+  document.getElementById('futureLossResult').innerText=
+    `In ${yearsAhead} years, if nothing changes, approximately ${hectaresLost.toLocaleString()} hectares of forest will be lost.`;
+
+  const ctx = document.getElementById('futureForestChart').getContext('2d');
+  if(futureChart) futureChart.destroy();
+  futureChart = new Chart(ctx,{ type:'line', data:{ labels:projectedYears, datasets:[{label:'Projected Forest Cover (%)', data:projectedCover, borderColor:'green', backgroundColor:'rgba(0,128,0,0.1)', fill:true, tension:0.3}]}, options:{responsive:true} });
+}
+</script>
+</body>
+</html>
