@@ -1797,6 +1797,61 @@ ol {
     padding: 13px;
   }
 }
+/* =========================================================
+   27. PRESSURES PAGE COMPONENTS
+   ========================================================= */
+
+.driver-card {
+  position: relative;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.driver-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--forest-600);
+  content: "";
+}
+
+.driver-card h3 {
+  margin-bottom: 12px;
+  color: var(--forest-950);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.driver-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.driver-category {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--warning);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   Spacing utilities
+   ========================================================= */
+
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-5 { margin-top: 1.25rem; }
 
 
 /* =========================================================
