@@ -1,191 +1,425 @@
-/*
- * DRC-deforestation — Data & Methodology module
- * Product specification section G.
- *
- * Layout: source register table > definitions & required distinctions >
- * limitations & gaps > attribution. Table and definition-list layouts.
- */
+import {
+  pageIntro,
+  sectionHeading,
+  statusBadge,
+  callout,
+} from "../components/placeholder.js";
+
+import {
+  DATA_SOURCES,
+  getSourceStatusSummary,
+} from "../data/placeholders.js";
+
+const STATUS_DESCRIPTIONS = {
+  available: "Available for use in the current implementation.",
+  candidate: "Potential source; integration and validation are still required.",
+  limited: "Potentially useful, but important limitations or conditions apply.",
+  planned: "Identified for a future implementation stage.",
+  deferred: "Not currently selected for integration.",
+};
+
+const DEFINITIONS = [
+  {
+    term: "Forest area",
+    explanation:
+      "An area classified as forest according to a particular definition. National reporting systems and remote-sensing products may use different criteria.",
+  },
+  {
+    term: "Tree cover",
+    explanation:
+      "A satellite-derived or otherwise measured description of tree canopy cover. A tree-cover threshold does not necessarily match the definition of forest used in national statistics.",
+  },
+  {
+    term: "Tree-cover loss",
+    explanation:
+      "A detected reduction or removal of tree cover during a defined period. It can include disturbances that do not necessarily represent permanent conversion to another land use.",
+  },
+  {
+    term: "Deforestation",
+    explanation:
+      "The conversion of forest to another land use under a specified definition. It should not be used as a synonym for every detected instance of tree-cover loss.",
+  },
+  {
+    term: "Forest degradation",
+    explanation:
+      "A deterioration in forest condition or ecological quality. Degradation can occur while an area remains classified as forest and may not be captured adequately by simple tree-cover-loss measurements.",
+  },
+  {
+    term: "Fire detection",
+    explanation:
+      "A satellite observation indicating a possible active fire at a particular location and observation time. A fire detection is not a measurement of burned area or proof of deforestation.",
+  },
+  {
+    term: "Species occurrence",
+    explanation:
+      "A recorded observation or documented presence of a species. Occurrence records do not directly measure population size or establish a complete distribution.",
+  },
+  {
+    term: "Population estimate",
+    explanation:
+      "A modelled or calculated estimate of population distribution. Gridded population products should not be described as direct census counts unless the source specifically supports that interpretation.",
+  },
+];
+
+const INTERPRETATION_RULES = [
+  {
+    title: "Define the geography",
+    description:
+      "The Congo Basin, the Congo River Basin, and the Congo Basin forest region are related but distinct geographic concepts. A result must state which boundary or geographic definition it uses.",
+  },
+  {
+    title: "Preserve the time period",
+    description:
+      "A value for one year cannot automatically be compared with a value from another period. Changes in methodology, sensor coverage, or definitions can affect comparisons.",
+  },
+  {
+    title: "Respect spatial resolution",
+    description:
+      "A regional dataset may be useful for broad patterns but unsuitable for claims about a particular community, property, or small site.",
+  },
+  {
+    title: "Separate observation from explanation",
+    description:
+      "A dataset can show where a change was detected without explaining the activity or process responsible for it.",
+  },
+  {
+    title: "Report uncertainty",
+    description:
+      "Cloud cover, classification errors, model assumptions, incomplete records, and other limitations can affect environmental measurements.",
+  },
+  {
+    title: "Check licensing and attribution",
+    description:
+      "The terms of use must be checked for each dataset and, where relevant, each individual record. Public availability does not automatically mean unrestricted reuse.",
+  },
+];
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function normaliseStatus(status) {
+  const allowed = [
+    "available",
+    "candidate",
+    "limited",
+    "planned",
+    "deferred",
+  ];
+
+  return allowed.includes(status) ? status : "planned";
+}
+
+function renderSource(source) {
+  const name = escapeHTML(source.name ?? source.title ?? "Unnamed source");
+  const description = escapeHTML(
+    source.description ?? "No description has been provided."
+  );
+  const status = normaliseStatus(source.status);
+  const category = escapeHTML(source.category ?? "Dataset");
+  const license = escapeHTML(
+    source.license ?? source.licence ?? "Verify the applicable licence."
+  );
+  const limitations = escapeHTML(
+    source.limitations ??
+      source.notes ??
+      "Review the source documentation before using this dataset."
+  );
+  const url = source.url;
+
+  const sourceLink =
+    typeof url === "string" &&
+    /^https?:\/\//i.test(url)
+      ? `<a class="text-link source-link"
+           href="${escapeHTML(url)}"
+           target="_blank"
+           rel="noopener noreferrer">
+           Visit source documentation
+         </a>`
+      : "";
+
+  return `
+    <article class="method-source-card">
+      <div class="method-source-meta">
+        <span class="source-category">${category}</span>
+        ${statusBadge(status)}
+      </div>
+
+      <h3>${name}</h3>
+      <p>${description}</p>
+
+      <div class="source-detail">
+        <strong>Licence and reuse</strong>
+        <p>${license}</p>
+      </div>
+
+      <div class="source-detail">
+        <strong>Limitations and considerations</strong>
+        <p>${limitations}</p>
+      </div>
+
+      <div class="source-card-footer">
+        ${sourceLink}
+      </div>
+    </article>
+  `;
+}
+
+function renderDefinition(item) {
+  return `
+    <article class="definition-card">
+      <h3>${item.term}</h3>
+      <p>${item.explanation}</p>
+    </article>
+  `;
+}
+
+function renderInterpretationRule(item, index) {
+  return `
+    <article class="interpretation-rule">
+      <span class="rule-number">${String(index + 1).padStart(2, "0")}</span>
+      <div>
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderStatusSummary() {
+  const summary = getSourceStatusSummary();
+
+  if (!summary || typeof summary !== "object") {
+    return "";
+  }
+
+  const entries = Object.entries(summary).filter(
+    ([, count]) => Number.isFinite(Number(count)) && Number(count) > 0
+  );
+
+  if (entries.length === 0) {
+    return "";
+  }
+
+  return `
+    <div class="source-status-summary">
+      ${entries
+        .map(
+          ([status, count]) => `
+            <div class="status-summary-item">
+              ${statusBadge(normaliseStatus(status))}
+              <strong>${Number(count)}</strong>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
 
 export function render() {
+  const sources = Array.isArray(DATA_SOURCES) ? DATA_SOURCES : [];
+
   return `
-    <section class="page" id="page-data-methodology" aria-label="Data & Methodology">
+    ${pageIntro({
+      eyebrow: "Data, sources & methodology",
+      title: "Evidence you can examine. Limitations you can understand.",
+      description:
+        "Environmental intelligence is only as useful as the evidence behind it. This section explains the datasets considered for the platform, the definitions used to interpret them, and the limitations that must be respected.",
+    })}
 
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Data &amp; Methodology</span>
-          <h2>Source register</h2>
+    <section class="section">
+      <div class="container">
+        <div class="methodology-notice">
+          <span class="eyebrow">Current implementation status</span>
+          <h2>This is a source register, not a live environmental database.</h2>
           <p>
-            Every data-backed indicator exposes its source, metric, period,
-            geography, resolution, limitations and licence. Release 1 uses
-            placeholders; real data is integrated in later batches.
+            The sources listed below are candidates or references for future
+            integration. They are not currently connected to a validated
+            measurement pipeline on this website.
           </p>
+          <p>
+            No live forest-loss measurements, population totals, biodiversity
+            counts, or environmental risk scores are being presented here.
+          </p>
+          ${statusBadge("candidate")}
         </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Indicator</th>
-                <th>Candidate source</th>
-                <th>Geography</th>
-                <th>Status</th>
-                <th>License</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Forest extent</td>
-                <td>FAO FRA 2025 (country-reported)</td>
-                <td>DRC / countries</td>
-                <td>Placeholder</td>
-                <td>CC BY 4.0</td>
-              </tr>
-              <tr>
-                <td>Tree-cover loss</td>
-                <td>Global Forest Watch (Hansen/UMD/Google/USGS/NASA)</td>
-                <td>Global incl. Congo Basin</td>
-                <td>Placeholder</td>
-                <td>Verify per dataset</td>
-              </tr>
-              <tr>
-                <td>Active fires</td>
-                <td>NASA FIRMS (MODIS / VIIRS)</td>
-                <td>Global incl. DRC</td>
-                <td>Placeholder</td>
-                <td>NASA public</td>
-              </tr>
-              <tr>
-                <td>Forest degradation</td>
-                <td>Derived analysis (deferred)</td>
-                <td>DRC / Basin</td>
-                <td>Placeholder</td>
-                <td>N/A</td>
-              </tr>
-              <tr>
-                <td>Protected areas</td>
-                <td>Protected Planet / UNEP-WCMC (WDPCA)</td>
-                <td>Global incl. DRC</td>
-                <td>Placeholder</td>
-                <td>UNEP-WCMC custom*</td>
-              </tr>
-              <tr>
-                <td>Biodiversity occurrences</td>
-                <td>GBIF</td>
-                <td>Global incl. DRC</td>
-                <td>Placeholder</td>
-                <td>Per-record (CC0 / BY / BY-NC)</td>
-              </tr>
-              <tr>
-                <td>Population context</td>
-                <td>WorldPop</td>
-                <td>DRC</td>
-                <td>Placeholder</td>
-                <td>CC BY 4.0</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="small muted mt-6">
-            * Protected Planet / WDPCA use is subject to UNEP-WCMC terms
-            (no commercial use or redistribution without permission). Project
-            commercial status is under review &mdash; see open decisions.
-          </p>
-        </div>
+        ${renderStatusSummary()}
       </div>
+    </section>
 
-      <!-- Definitions & distinctions -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Definitions</span>
-          <h2>Required distinctions</h2>
-          <p>
-            These distinctions are disclosed with every indicator to prevent
-            misinterpretation.
-          </p>
-        </div>
-        <div class="dl-grid">
-          <div class="dl-item">
-            <span class="dl-term">Forest area &ne; tree-cover canopy</span>
-            <p class="dl-def">Different definitions are disclosed per indicator;
-            one is not substituted for the other.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Tree-cover loss &ne; permanent deforestation</span>
-            <p class="dl-def">Loss may result from fire, storm, harvest or
-            conversion; it is not automatically permanent deforestation.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Fire detections &ne; burned area &ne; deforestation</span>
-            <p class="dl-def">Detections are satellite observations, not
-            confirmed events or proof of cause.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Species occurrences &ne; population estimates</span>
-            <p class="dl-def">Records retain provenance; they are not
-            abundance or proof of current presence.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Protected-area designation &ne; effective protection</span>
-            <p class="dl-def">A designated area is not necessarily effectively
-            protected on the ground.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Spatial association &ne; causation</span>
-            <p class="dl-def">Driver attribution requires evidence, not mere
-            overlap with forest loss.</p>
-          </div>
-          <div class="dl-item">
-            <span class="dl-term">Projections are scenarios</span>
-            <p class="dl-def">Model outputs are labelled as scenarios, never
-            as observed facts.</p>
+    <section class="section section-soft">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Source register",
+          title: "Where environmental evidence may come from",
+          description:
+            "Each source must be checked for its geographic coverage, observation period, methodology, licence, and limitations before integration.",
+        })}
+
+        ${
+          sources.length
+            ? `<div class="method-source-grid">
+                ${sources.map(renderSource).join("")}
+              </div>`
+            : `<p class="muted">No data sources are currently registered.</p>`
+        }
+
+        <div class="status-legend">
+          <h3>Understanding source status</h3>
+          <div class="status-legend-grid">
+            ${Object.entries(STATUS_DESCRIPTIONS)
+              .map(
+                ([status, description]) => `
+                  <div class="status-legend-item">
+                    ${statusBadge(status)}
+                    <p>${description}</p>
+                  </div>
+                `
+              )
+              .join("")}
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Limitations -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Limitations</span>
-          <h2>Known limitations and gaps</h2>
-          <p>
-            Where no reliable data exists, the gap is shown rather than
-            inventing a value.
-          </p>
+    <section class="section">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Definitions",
+          title: "Similar terms can describe different measurements",
+          description:
+            "These distinctions are essential when combining satellite observations, national statistics, and ecological records.",
+        })}
+
+        <div class="definition-grid">
+          ${DEFINITIONS.map(renderDefinition).join("")}
         </div>
-        <ul>
-          <li>No environmental statistics are integrated in Release 1; all
-          indicator values are placeholders.</li>
-          <li>Dataset boundaries may differ; each map discloses its boundary
-          definition.</li>
-          <li>API access, quotas and licensing are reviewed before integration.</li>
-          <li>No API keys or secrets are stored in frontend code.</li>
-          <li>Satellite alerts are not automatically confirmed deforestation
-          events or proof of cause.</li>
-        </ul>
       </div>
+    </section>
 
-      <!-- Attribution -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Attribution</span>
-          <h2>Attribution and licensing</h2>
-          <p>
-            Attribution and licensing details are confirmed per dataset before
-            publication. Sources consulted include FAO FRA 2025, Global Forest
-            Watch, NASA FIRMS, Copernicus, Protected Planet, GBIF and
-            WorldPop (see the Environmental Data Catalog).
-          </p>
+    <section class="section section-soft">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Methodological principles",
+          title: "How evidence should be interpreted",
+          description:
+            "Before a dataset is used to support a claim, the following questions should be addressed.",
+        })}
+
+        <div class="interpretation-list">
+          ${INTERPRETATION_RULES.map(renderInterpretationRule).join("")}
         </div>
-        <p class="muted small">
-          This platform is a NASA Space Apps Challenge 2025 initiative by
-          Team Kinshasa Green. No personal data is collected unless a
-          justified feature requires it.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Source-specific considerations",
+          title: "Important limitations to remember",
+          description:
+            "Different data types answer different questions. Combining them requires careful interpretation.",
+        })}
+
+        <div class="limitation-grid">
+          <article class="limitation-card">
+            <h3>Satellite tree-cover products</h3>
+            <p>
+              Tree-cover loss is not automatically equivalent to permanent
+              deforestation. Thresholds, forest definitions, observation
+              periods, and classification methods matter.
+            </p>
+          </article>
+
+          <article class="limitation-card">
+            <h3>Active fire observations</h3>
+            <p>
+              FIRMS fire detections indicate satellite-observed active fire
+              locations. They are not burned-area measurements and do not
+              establish that deforestation occurred.
+            </p>
+          </article>
+
+          <article class="limitation-card">
+            <h3>Protected-area boundaries</h3>
+            <p>
+              A protected-area designation does not demonstrate effective
+              protection, enforcement, ecological condition, or the absence
+              of human pressure.
+            </p>
+          </article>
+
+          <article class="limitation-card">
+            <h3>Biodiversity records</h3>
+            <p>
+              GBIF occurrence records document observations and records.
+              They do not provide a complete inventory or direct population
+              estimates for every species and location.
+            </p>
+          </article>
+
+          <article class="limitation-card">
+            <h3>Population grids</h3>
+            <p>
+              WorldPop products are modelled population estimates. Their
+              resolution and modelling assumptions must be considered, and
+              they should not be represented as direct census counts.
+            </p>
+          </article>
+
+          <article class="limitation-card">
+            <h3>Forest degradation</h3>
+            <p>
+              Degradation can be difficult to identify using simple
+              tree-cover measurements. A validated dataset and methodology
+              are required before this platform can quantify it.
+            </p>
+          </article>
+        </div>
+
+        ${callout({
+          type: "warning",
+          title: "Licensing is part of data quality",
+          message:
+            "A dataset being publicly accessible does not automatically permit redistribution, modification, or commercial reuse. The exact product, version, and applicable licence must be verified before integration.",
+        })}
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container closing-message">
+        <span class="eyebrow">Transparency commitment</span>
+        <h2>Every environmental claim should have a traceable basis.</h2>
+        <p>
+          The platform aims to make its sources, definitions, methods,
+          uncertainty, and limitations understandable rather than hide them
+          behind visualisations or simplified scores.
+        </p>
+        <a class="btn btn-light" href="#explore">Return to exploration</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container attribution-note">
+        <h2>Project attribution</h2>
+        <p>
+          This project originated in the context of NASA Space Apps Challenge
+          participation. It is an independent project and is not an official
+          NASA product, service, or position. References to NASA datasets do
+          not imply NASA endorsement.
         </p>
       </div>
-
     </section>
   `;
 }
 
 export function init() {
-  /* No page-specific setup required. */
+  // Source register and methodology content are currently static.
 }

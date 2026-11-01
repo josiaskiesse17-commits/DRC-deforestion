@@ -1,153 +1,335 @@
 /*
- * DRC-deforestation — Explore the Basin module
- * Product specification section B.
+ * DRC-deforestation
+ * Explore the Congo Basin
  *
- * Layout: map placeholder figure > basin-boundary callout > country comparison
- * > DRC-focused exploration > layer provenance. Map-centric, not a card grid.
+ * Geographical introduction and map integration placeholder.
+ * No unvalidated boundaries or live geographical measurements
+ * are represented as operational data.
  */
+
+import {
+  pageIntro,
+  sectionHeading,
+  mapPlaceholder,
+  callout,
+} from '../components/placeholder.js';
 
 export function render() {
   return `
-    <section class="page" id="page-explore" aria-label="Explore the Basin">
+    <div class="page">
 
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Explore the Basin</span>
-          <h2>Interactive map of the Congo Basin</h2>
-          <p>
-            Explore documented basin and country boundaries, compare countries,
-            and drill into DRC-focused exploration. Boundaries and data sources
-            are disclosed for every layer.
-          </p>
-        </div>
+      ${pageIntro({
+        eyebrow: 'Explore the region',
+        title: 'One basin. Many interconnected landscapes.',
+        description:
+          'Discover the geographical context of the Congo Basin and understand why the definition of a region matters when analysing environmental change.',
+      })}
 
-        <!-- Map placeholder -->
-        <div class="figure">
-          <div class="figure-img" aria-label="Congo Basin map placeholder">
-            [ Interactive Congo Basin map &mdash; basin boundary, country
-            outlines and DRC focus to be integrated with authoritative
-            boundary data ]
+
+      <!-- MAP -->
+      <section class="container">
+
+        ${mapPlaceholder({
+          title: 'Congo Basin geographical explorer',
+          description:
+            'An interactive map with verified country boundaries, basin boundaries and environmental layers is planned. No geographical measurements are currently being displayed.',
+        })}
+
+        <p class="map-disclaimer">
+          Planned map layers: national boundaries, Congo River Basin,
+          forest-region boundaries and selected environmental datasets.
+        </p>
+
+      </section>
+
+
+      <!-- GEOGRAPHICAL DISTINCTIONS -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Geographical context',
+            title: 'What exactly do we mean by the Congo Basin?',
+            description:
+              'The term is often used broadly, but different geographical definitions describe different areas. This matters when interpreting maps, statistics and environmental studies.',
+          })}
+
+          <div class="content-grid grid-3">
+
+            <article class="card">
+              <span class="kicker">Ecological geography</span>
+
+              <h3>Congo Basin forest region</h3>
+
+              <p>
+                Refers to the forest ecosystems of the region.
+                Its boundaries depend on the forest definition
+                and the dataset or classification being used.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Hydrology</span>
+
+              <h3>Congo River Basin</h3>
+
+              <p>
+                Refers to the land area that drains water
+                into the Congo River and its tributaries.
+                It is a hydrological concept, not simply
+                a forest boundary.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Regional geography</span>
+
+              <h3>Congo Basin region</h3>
+
+              <p>
+                A broader regional expression that can refer
+                to the countries and territories associated
+                with the basin. Its use should be defined
+                in each analysis.
+              </p>
+            </article>
+
           </div>
-          <p class="figure-caption">
-            Map placeholder. Basin and country boundaries will be drawn from
-            documented, authoritative sources. Each layer carries its source,
-            date, resolution and methodology.
-          </p>
-        </div>
 
-        <!-- Basin boundary definition -->
-        <div class="callout">
-          <h4>Geographic integrity</h4>
-          <p>
-            &ldquo;Congo Basin&rdquo;, &ldquo;Congo River Basin&rdquo; and
-            &ldquo;Congo Basin rainforest&rdquo; are not treated as
-            interchangeable. This platform selects and documents a geographic
-            definition for each map or analysis, and discloses where dataset
-            boundaries differ.
-          </p>
-        </div>
-      </div>
+          <div class="mt-4">
+            ${callout({
+              title: 'Why this distinction matters',
+              message:
+                'A statistic calculated for the Congo River Basin cannot automatically be described as a statistic for the Congo Basin forest region. The geographical boundary used must accompany the result.',
+              type: 'warning',
+            })}
+          </div>
 
-      <!-- Country comparison -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Compare countries</span>
-          <h2>Congo Basin country context</h2>
-          <p>
-            Comparable indicators across Congo Basin countries where definitions
-            and datasets permit, using harmonised metrics and comparable periods.
-          </p>
         </div>
-        <div class="grid-2">
-          <div class="feature">
-            <div class="feature-icon">&#127968;</div>
-            <div class="feature-body">
-              <h3>Country selection</h3>
-              <p>Select individual Basin countries to view their forest
-              context and indicators side by side.</p>
+      </section>
+
+
+      <!-- DRC FOCUS -->
+      <section class="section section-sm">
+        <div class="container">
+
+          <div class="story-section">
+
+            <div class="story-copy">
+
+              <span class="eyebrow">A deeper regional focus</span>
+
+              <h2>
+                The Democratic Republic of the Congo.
+              </h2>
+
+              <p>
+                The DRC is a central geographical focus of this
+                platform. Understanding its forests requires
+                attention to the country's diverse landscapes,
+                communities, ecosystems and environmental pressures.
+              </p>
+
+              <p>
+                National-level information should not be treated
+                as if it describes every province, forest landscape
+                or local community equally.
+              </p>
+
+              <a class="text-link" href="#forest-intelligence">
+                Explore forest intelligence
+              </a>
+
             </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128205;</div>
-            <div class="feature-body">
-              <h3>Comparison table</h3>
-              <p>Forest extent, tree-cover loss and other indicators shown in
-              a shared table with common units and periods.</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- DRC-focused exploration -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">DRC focus</span>
-          <h2>Democratic Republic of the Congo</h2>
-          <p>
-            Deeper forest and environmental analysis for the DRC, at the finest
-            level supported by valid data &mdash; provinces, landscapes or
-            protected areas where authoritative boundaries exist.
+            <div class="story-visual">
+              <div class="visual-caption">
+                The DRC focus: understanding environmental change
+                across different landscapes and scales.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- REGIONAL COMPARISON -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Regional perspective',
+            title: 'Environmental patterns cross national borders.',
+            description:
+              'The Congo Basin is shared across several countries. Regional analysis requires consistent geographical definitions and comparable indicators.',
+          })}
+
+          <div class="table-wrap">
+
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Geographical area</th>
+                  <th>Analytical perspective</th>
+                  <th>Important consideration</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <td><strong>Democratic Republic of the Congo</strong></td>
+                  <td>National and subnational environmental analysis.</td>
+                  <td>National statistics can conceal local differences.</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Republic of the Congo</strong></td>
+                  <td>Regional forest and landscape context.</td>
+                  <td>Country-level indicators require consistent definitions.</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Cameroon</strong></td>
+                  <td>Regional ecological and land-use context.</td>
+                  <td>Administrative and ecological boundaries differ.</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Central African Republic</strong></td>
+                  <td>Forest landscape and land-use context.</td>
+                  <td>Data availability may vary by indicator and year.</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Gabon</strong></td>
+                  <td>Forest ecosystems and conservation context.</td>
+                  <td>Forest cover alone does not describe forest condition.</td>
+                </tr>
+
+                <tr>
+                  <td><strong>Equatorial Guinea</strong></td>
+                  <td>Regional forest and biodiversity context.</td>
+                  <td>National and regional scales should remain distinct.</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+
+          <p class="small muted mt-2">
+            This is an introductory regional overview, not a
+            definitive list of every country or territory included
+            in every Congo Basin definition.
           </p>
-        </div>
-        <div class="grid-2">
-          <div class="feature">
-            <div class="feature-icon">&#128202;</div>
-            <div class="feature-body">
-              <h3>Subnational layers</h3>
-              <p>Province and landscape boundaries, added only where
-              documented and consistent data is available.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#127996;</div>
-            <div class="feature-body">
-              <h3>DRC indicators</h3>
-              <p>Forest extent and pressure indicators specific to the DRC,
-              traceable to national and international sources.</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Layer provenance -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Layer transparency</span>
-          <h2>Every layer, documented</h2>
-          <p>
-            Map layers include a legend, source organisation, observation
-            period, spatial resolution and aggregation method. Download is
-            offered where licensing permits.
-          </p>
         </div>
-        <div class="indicator-grid">
-          <div class="indicator">
-            <span class="label">Boundary source</span>
-            <span class="title">Pending selection</span>
-            <span class="note">Authoritative basin / country boundaries</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Update cadence</span>
-            <span class="title">Per dataset</span>
-            <span class="note">Disclosed with each layer</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Licensing</span>
-            <span class="title">Verified per source</span>
-            <span class="note">Download where permitted</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Resolution</span>
-            <span class="title">Disclosed per layer</span>
-            <span class="note">No aggregation hidden</span>
-          </div>
-        </div>
-      </div>
+      </section>
 
-    </section>
+
+      <!-- FUTURE LAYERS -->
+      <section class="section section-sm">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Future geographical layers',
+            title: 'A map should reveal relationships, not just locations.',
+            description:
+              'The planned geographical explorer will connect environmental indicators with the geographical context needed to interpret them.',
+          })}
+
+          <div class="content-grid grid-2">
+
+            <article class="card">
+              <span class="kicker">Layer 01</span>
+
+              <h3>Forest landscapes</h3>
+
+              <p>
+                Forest extent and carefully defined forest-change
+                indicators, with their dataset versions and
+                observation periods.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Layer 02</span>
+
+              <h3>Protected areas</h3>
+
+              <p>
+                Designated protected areas, accompanied by
+                source attribution and the limitations of
+                designation data.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Layer 03</span>
+
+              <h3>Fire observations</h3>
+
+              <p>
+                Satellite active-fire detections, clearly
+                distinguished from burned-area measurements
+                and deforestation.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Layer 04</span>
+
+              <h3>Human geography</h3>
+
+              <p>
+                Population distribution and other contextual
+                information, with modelled estimates clearly
+                distinguished from direct observations.
+              </p>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <section class="cta-section">
+        <div class="container cta-inner">
+
+          <div>
+            <span class="eyebrow">Continue exploring</span>
+
+            <h2>
+              Understand what is happening to the forests.
+            </h2>
+
+            <p>
+              Move from geographical context to the indicators
+              used to describe forest change.
+            </p>
+          </div>
+
+          <a class="btn btn-light" href="#forest-intelligence">
+            Forest intelligence
+          </a>
+
+        </div>
+      </section>
+
+    </div>
   `;
 }
 
 export function init() {
-  /* Map layer integration happens in a later batch. */
+  // Interactive mapping will be introduced after geographical
+  // datasets and their boundaries have been validated.
 }

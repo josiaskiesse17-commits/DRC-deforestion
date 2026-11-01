@@ -1,72 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DRC-deforestion — Congo Basin Environmental Intelligence</title>
-  <meta name="description" content="Public environmental awareness and intelligence platform for the Congo Basin and the Democratic Republic of the Congo." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f35">
+  <meta name="description" content="An environmental awareness and intelligence platform for the Congo Basin, with a deeper focus on the forests and environmental pressures of the Democratic Republic of the Congo.">
+
+  <title>DRC-deforestation | Congo Basin Environmental Intelligence</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
-      <a href="#home" class="brand" aria-label="DRC-deforestion home">
-        <span class="brand-mark">&#127757;</span>
-        <span class="brand-name">DRC-deforestion</span>
-        <span class="brand-sub">Congo Basin Environmental Intelligence</span>
+
+      <a class="brand" href="#home" aria-label="DRC-deforestation home">
+        <span class="brand-symbol" aria-hidden="true">D</span>
+
+        <span class="brand-copy">
+          <span class="brand-name">DRC<span class="brand-name-light">/</span>FOREST</span>
+          <span class="brand-subtitle">Congo Basin Environmental Intelligence</span>
+        </span>
       </a>
 
-      <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">
-        <span class="nav-toggle-icon"></span>
-        <span class="nav-toggle-icon"></span>
-        <span class="nav-toggle-icon"></span>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="main-nav"
+        aria-label="Open navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
-      <nav class="main-nav" id="main-nav">
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="#home">Home</a></li>
-          <li><a href="#explore">Explore the Basin</a></li>
-          <li><a href="#forest-intelligence">Forest Intelligence</a></li>
-          <li><a href="#biodiversity">Biodiversity &amp; Conservation</a></li>
-          <li><a href="#pressures">Human &amp; Environmental Pressures</a></li>
-          <li><a href="#learn-act">Learn &amp; Act</a></li>
-          <li><a href="#data-methodology">Data &amp; Methodology</a></li>
+          <li><a href="#explore">Explore</a></li>
+          <li><a href="#forest-intelligence">Forest intelligence</a></li>
+          <li><a href="#biodiversity">Biodiversity</a></li>
+          <li><a href="#pressures">Pressures</a></li>
+          <li><a href="#learn-act">Learn &amp; act</a></li>
+          <li><a href="#data-methodology">Data &amp; methods</a></li>
         </ul>
       </nav>
+
     </div>
+
+    <div class="mobile-overlay" data-mobile-overlay hidden></div>
   </header>
 
-  <main id="main-content" tabindex="-1">
-    <!-- Page content is rendered here by the client-side router. -->
-  </main>
+  <main
+    id="main-content"
+    class="main-wrap"
+    tabindex="-1"
+    aria-live="polite"
+  ></main>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="brand" style="text-decoration:none; color:inherit;">
-          <span class="brand-mark">&#127757;</span>
-          <span class="brand-name" style="color:#fff;">DRC-deforestion</span>
-        </div>
-        <p>Public environmental awareness and intelligence platform covering the Congo Basin, with deeper analysis of forest and environmental pressures in the Democratic Republic of the Congo.</p>
-        <p class="muted small">NASA Space Apps Challenge 2025 &bull; Team Kinshasa Green</p>
+
+      <div class="footer-main">
+        <a class="brand brand-footer" href="#home" aria-label="DRC-deforestation home">
+          <span class="brand-symbol" aria-hidden="true">D</span>
+
+          <span class="brand-copy">
+            <span class="brand-name">DRC<span class="brand-name-light">/</span>FOREST</span>
+            <span class="brand-subtitle">Congo Basin Environmental Intelligence</span>
+          </span>
+        </a>
+
+        <p>
+          An independent educational platform making environmental
+          information about the Congo Basin more accessible,
+          understandable and transparent.
+        </p>
       </div>
-      <nav class="footer-nav" style="display:none;">
-        <ul style="list-style:none; display:flex; gap:var(--space-4); flex-wrap:wrap;">
-          <li><a href="#home" style="color:#b9cbbc;">Home</a></li>
-          <li><a href="#explore" style="color:#b9cbbc;">Explore the Basin</a></li>
-          <li><a href="#forest-intelligence" style="color:#b9cbbc;">Forest Intelligence</a></li>
-          <li><a href="#biodiversity" style="color:#b9cbbc;">Biodiversity &amp; Conservation</a></li>
-          <li><a href="#pressures" style="color:#b9cbbc;">Pressures</a></li>
-          <li><a href="#learn-act" style="color:#b9cbbc;">Learn &amp; Act</a></li>
-          <li><a href="#data-methodology" style="color:#b9cbbc;">Data &amp; Methodology</a></li>
-        </ul>
-      </nav>
-      <div class="footer-legal">
-        <p><strong>Data caution:</strong> No environmental statistics are presented as observed facts in this release. Placeholders are used where data has not yet been integrated from a verified source. See <a href="#data-methodology">Data &amp; Methodology</a>.</p>
-        <p>&#169; 2026 DRC-deforestion. Educational awareness platform.</p>
+
+      <div class="footer-links">
+        <span class="footer-heading">Explore</span>
+        <a href="#explore">The Basin</a>
+        <a href="#forest-intelligence">Forest intelligence</a>
+        <a href="#biodiversity">Biodiversity</a>
+        <a href="#learn-act">Learn &amp; act</a>
       </div>
+
+      <div class="footer-links">
+        <span class="footer-heading">Transparency</span>
+        <a href="#data-methodology">Data &amp; methodology</a>
+        <a href="#pressures">Environmental pressures</a>
+        <span class="footer-note">
+          Data availability and licensing are disclosed by indicator.
+        </span>
+      </div>
+
+      <div class="footer-bottom">
+        <span>
+          © <span id="current-year">2026</span>
+          DRC-deforestation · Educational awareness platform
+        </span>
+
+        <span>NASA Space Apps Challenge 2025 · Team Kinshasa Green</span>
+      </div>
+
     </div>
   </footer>
 

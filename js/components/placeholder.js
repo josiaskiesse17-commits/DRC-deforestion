@@ -1,60 +1,244 @@
 /*
- * DRC-deforestion — Reusable placeholder component
- * Renders a clearly-marked "data not yet integrated" state. Used wherever a
- * real environmental dataset has not yet been wired in (Batch 2+).
+ * DRC-deforestation
+ * Reusable interface components.
+ *
+ * These components are deliberately framework-free.
+ * They return HTML strings for use by the page modules.
  */
 
-export function placeholderCard({ title, body, detail }) {
-  const detailHtml = detail ? `<p class="small muted">${escapeHtml(detail)}</p>` : '';
+/**
+ * Escape HTML-sensitive characters before inserting dynamic text.
+ */
+export function escapeHTML(value = '') {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const entities = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    };
+
+    return entities[character];
+  });
+}
+
+/**
+ * Status labels communicate the actual implementation state.
+ *
+ * available: data or feature is available for use.
+ * candidate: a possible source or feature under consideration.
+ * planned: intended for a future implementation.
+ * deferred: intentionally postponed.
+ * limited: available with important restrictions.
+ */
+const STATUS_LABELS = {
+  available: 'Available',
+  candidate: 'Candidate source',
+  planned: 'Planned',
+  deferred: 'Deferred',
+  limited: 'Limited availability',
+};
+
+export function statusBadge(status = 'planned') {
+  const normalized = STATUS_LABELS[status] ? status : 'planned';
+
   return `
-    <div class="placeholder" role="status" aria-label="Data not yet available: ${escapeHtml(title)}">
-      <h3>${escapeHtml(title)}</h3>
-      <p>Data not yet integrated. This section will display verified ${escapeHtml(body || 'data')} from a documented source once integrated.</p>
-      ${detailHtml}
+    <span class="badge badge-${normalized}">
+      ${STATUS_LABELS[normalized]}
+    </span>
+  `;
+}
+
+/**
+ * General informational notice.
+ */
+export function callout({
+  title = 'Important information',
+  message = '',
+  type = 'info',
+} = {}) {
+  const allowedTypes = ['info', 'warning', 'danger'];
+
+  const normalizedType = allowedTypes.includes(type)
+    ? type
+    : 'info';
+
+  return `
+    <aside class="callout callout-${normalizedType}" role="note">
+      <div>
+        <strong class="callout-title">
+          ${escapeHTML(title)}
+        </strong>
+
+        <p>${escapeHTML(message)}</p>
+      </div>
+    </aside>
+  `;
+}
+
+/**
+ * Clearly marked placeholder for a feature that is not implemented.
+ *
+ * Never use this component to imply that a map, chart, calculator
+ * or analytical result is already operational.
+ */
+export function featurePlaceholder({
+  title = 'Not yet available',
+  description = 'This feature has not yet been implemented.',
+  status = 'planned',
+} = {}) {
+  return `
+    <div class="data-placeholder">
+      ${statusBadge(status)}
+
+      <h3>${escapeHTML(title)}</h3>
+
+      <p>${escapeHTML(description)}</p>
     </div>
   `;
 }
 
-export function placeholderSection({ title, intro, items }) {
-  const itemsHtml = items && items.length
-    ? items.map((it) => `
-        <div class="card">
-          <h3>${escapeHtml(it.title)}</h3>
-          <p>${escapeHtml(it.body || '')}</p>
-          <div class="card-footer">
-            <span class="muted small">Placeholder &mdash; source pending</span>
-          </div>
-        </div>
-      `).join('')
-    : '';
+/**
+ * Placeholder for a map that is not yet connected to validated
+ * geographical datasets.
+ */
+export function mapPlaceholder({
+  title = 'Interactive map in development',
+  description = 'Geographical layers and validated datasets have not yet been integrated.',
+} = {}) {
   return `
-    <section class="page-section" aria-labelledby="sec-${slugify(title)}">
-      <div class="page-header">
-        <h2 id="sec-${slugify(title)}">${escapeHtml(title)}</h2>
-        <p class="muted">${escapeHtml(intro || '')}</p>
-      </div>
-      <div class="page-deck">
-        ${itemsHtml}
-        ${itemsHtml ? '' : placeholderCard({ title: 'No data available yet', body: 'content for this section', detail: 'Indicator values will appear here once a verified dataset is integrated.' })}
+    <section class="map-placeholder" aria-label="Map availability notice">
+      <div class="map-placeholder-content">
+        ${statusBadge('planned')}
+
+        <h3>${escapeHTML(title)}</h3>
+
+        <p>${escapeHTML(description)}</p>
+
+        <p class="map-disclaimer">
+          No live geographical analysis is being displayed here.
+        </p>
       </div>
     </section>
   `;
 }
 
-/* Minimal escaping to avoid injecting HTML from data. */
-function escapeHtml(str) {
-  if (str == null) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+/**
+ * Source information card.
+ */
+export function sourceCard({
+  name,
+  provider,
+  description,
+  status = 'candidate',
+  coverage = '',
+  limitations = '',
+  url = '',
+} = {}) {
+  const safeName = escapeHTML(name || 'Unnamed source');
+  const safeProvider = escapeHTML(provider || 'Provider not specified');
+
+  const link = url
+    ? `
+      <a
+        class="text-link"
+        href="${escapeHTML(url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visit source
+      </a>
+    `
+    : '';
+
+  return `
+    <article class="card">
+      <div class="lesson-meta">
+        ${statusBadge(status)}
+      </div>
+
+      <h3 class="mt-2">${safeName}</h3>
+
+      <p class="small muted">${safeProvider}</p>
+
+      <p>${escapeHTML(description || '')}</p>
+
+      ${
+        coverage
+          ? `
+            <p class="small">
+              <strong>Coverage:</strong>
+              ${escapeHTML(coverage)}
+            </p>
+          `
+          : ''
+      }
+
+      ${
+        limitations
+          ? `
+            <p class="small">
+              <strong>Limitations:</strong>
+              ${escapeHTML(limitations)}
+            </p>
+          `
+          : ''
+      }
+
+      ${link}
+    </article>
+  `;
 }
 
-function slugify(str) {
-  return String(str || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+/**
+ * Simple section heading.
+ */
+export function sectionHeading({
+  eyebrow = '',
+  title = '',
+  description = '',
+  centered = false,
+} = {}) {
+  return `
+    <div class="section-heading ${centered ? 'centered' : ''}">
+      ${eyebrow ? `<span class="eyebrow">${escapeHTML(eyebrow)}</span>` : ''}
+
+      <h2 class="${eyebrow ? 'mt-2' : ''}">
+        ${escapeHTML(title)}
+      </h2>
+
+      ${
+        description
+          ? `<p>${escapeHTML(description)}</p>`
+          : ''
+      }
+    </div>
+  `;
+}
+
+/**
+ * Reusable page introduction.
+ */
+export function pageIntro({
+  eyebrow = '',
+  title = '',
+  description = '',
+  compact = false,
+} = {}) {
+  return `
+    <section class="page-intro ${compact ? 'compact' : ''}">
+      <div class="container">
+        ${eyebrow ? `<span class="eyebrow">${escapeHTML(eyebrow)}</span>` : ''}
+
+        <h1>${escapeHTML(title)}</h1>
+
+        ${
+          description
+            ? `<p>${escapeHTML(description)}</p>`
+            : ''
+        }
+      </div>
+    </section>
+  `;
 }

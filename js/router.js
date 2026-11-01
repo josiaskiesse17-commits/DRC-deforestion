@@ -1,74 +1,127 @@
 /*
- * DRC-deforestion — Client-side router
- * Hash-based routing. Keeps a single shell (header/footer) shared across all
- * product-specification sections while giving each section a bookmarkable URL.
+ * DRC-deforestation — hash router.
+ *
+ * Supports bookmarkable routes while preserving the shared
+ * application header and footer.
  */
 
 export class Router {
   constructor({ routes, contentSelector }) {
-    this.routes = routes; // { path: { render?, init? } }
+    this.routes = routes;
     this.contentEl = document.querySelector(contentSelector);
+
     if (!this.contentEl) {
-      throw new Error(`Router: content element "${contentSelector}" not found`);
+      throw new Error(
+        `Router: content element "${contentSelector}" not found`
+      );
     }
+
     this.currentPath = null;
-    this._onHashChange = this._onHashChange.bind(this);
+    this.onHashChange = this.onHashChange.bind(this);
   }
 
   start() {
-    window.addEventListener('hashchange', this._onHashChange);
-    window.addEventListener('load', this._onHashChange);
-    this._onHashChange();
+    window.addEventListener('hashchange', this.onHashChange);
+
+    // Render the initial route immediately.
+    this.onHashChange();
   }
 
-  _onHashChange() {
-    let path = window.location.hash.replace(/^#/, '') || 'home';
-    // Normalise: strip leading slash if present.
-    path = path.replace(/^\//, '');
-    if (!(path in this.routes)) {
-      // Unknown route: fall back to home.
+  getPath() {
+    return (
+      window.location.hash
+        .replace(/^#/, '')
+        .replace(/^\/+/, '')
+        .trim() || 'home'
+    );
+  }
+
+  onHashChange() {
+    const path = this.getPath();
+
+    if (!Object.prototype.hasOwnProperty.call(this.routes, path)) {
       window.location.hash = 'home';
       return;
     }
+
+    this.updateActiveNav(path);
+
+    // Avoid rendering the same page unnecessarily.
     if (path === this.currentPath) {
-      // Same page: still ensure nav highlight is correct.
-      this._updateActiveNav(path);
       return;
     }
+
     this.currentPath = path;
-    this._render(path);
+    this.render(path);
   }
 
-  _render(path) {
+  render(path) {
     const route = this.routes[path];
-    const html = typeof route.render === 'function' ? route.render() : '';
-    this.contentEl.innerHTML = html;
-    window.scrollTo(0, 0);
-    /* Move focus to the new main content so screen readers announce the change. */
-    this.contentEl.focus();
-    this._updateActiveNav(path);
-    if (typeof route.init === 'function') {
-      route.init();
+
+    try {
+      const markup =
+        typeof route.render === 'function'
+          ? route.render()
+          : '';
+
+      this.contentEl.innerHTML = markup;
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto',
+      });
+
+      this.contentEl.focus({
+        preventScroll: true,
+      });
+
+      this.updateActiveNav(path);
+
+      if (typeof route.init === 'function') {
+        route.init();
+      }
+    } catch (error) {
+      console.error(`Unable to render route "${path}"`, error);
+
+      this.contentEl.innerHTML = `
+        <section
+          class="page page-intro"
+          aria-labelledby="route-error-title"
+        >
+          <span class="eyebrow">Application error</span>
+
+          <h1 id="route-error-title">
+            This section could not be displayed.
+          </h1>
+
+          <p>
+            Please return to the homepage or try again.
+          </p>
+
+          <a class="btn" href="#home">
+            Return home
+          </a>
+        </section>
+      `;
     }
   }
 
-  _updateActiveNav(path) {
-    const links = document.querySelectorAll('.nav-list a');
-    links.forEach((link) => {
-      const href = link.getAttribute('href') || '';
-      const linkPath = href.replace(/^#/, '');
-      const active = linkPath === path;
-      link.setAttribute('aria-current', active ? 'page' : 'false');
-      if (active) {
-        link.classList.add('active');
+  updateActiveNav(path) {
+    document.querySelectorAll('.nav-list a').forEach((link) => {
+      const linkPath = (link.getAttribute('href') || '')
+        .replace(/^#/, '');
+
+      if (linkPath === path) {
+        link.setAttribute('aria-current', 'page');
       } else {
-        link.classList.remove('active');
+        link.removeAttribute('aria-current');
       }
     });
   }
 
-  /* Programmatic navigation. */
   navigate(path) {
-    window.location.hash = path;
+    if (Object.prototype.hasOwnProperty.call(this.routes, path)) {
+      window.location.hash = path;
+    }
   }
 }

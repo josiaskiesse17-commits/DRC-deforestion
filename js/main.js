@@ -1,6 +1,7 @@
 /*
- * DRC-deforestion — Application entry point
- * Wires the router to page modules and handles the mobile navigation toggle.
+ * DRC-deforestation — application entry point.
+ *
+ * Registers all page routes and controls responsive navigation.
  */
 
 import { Router } from './router.js';
@@ -23,39 +24,91 @@ const routes = {
   'data-methodology': dataMethodologyPage,
 };
 
-const router = new Router({ routes, contentSelector: '#main-content' });
+const router = new Router({
+  routes,
+  contentSelector: '#main-content',
+});
 
-/* Mobile navigation toggle. */
+/**
+ * Initialise the responsive navigation.
+ *
+ * Desktop navigation remains visible.
+ * On smaller screens, the navigation becomes a slide-in panel.
+ */
 function initMobileNav() {
   const header = document.getElementById('site-header');
-  const toggle = document.querySelector('.nav-toggle');
+  const toggle = header?.querySelector('.nav-toggle');
   const nav = document.getElementById('main-nav');
+  const overlay = header?.querySelector('[data-mobile-overlay]');
 
-  if (!toggle || !nav || !header) return;
+  if (!header || !toggle || !nav) return;
+
+  const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+  function setOpen(open, { returnFocus = false } = {}) {
+    const isMobile = mobileQuery.matches;
+    const shouldOpen = Boolean(open && isMobile);
+
+    header.dataset.mobileOpen = String(shouldOpen);
+
+    toggle.setAttribute('aria-expanded', String(shouldOpen));
+    toggle.setAttribute(
+      'aria-label',
+      shouldOpen ? 'Close navigation' : 'Open navigation'
+    );
+
+    if (overlay) {
+      overlay.hidden = !isMobile;
+    }
+
+    document.body.classList.toggle('nav-is-open', shouldOpen);
+
+    if (returnFocus) {
+      toggle.focus();
+    }
+  }
 
   toggle.addEventListener('click', () => {
-    const isOpen = header.getAttribute('data-mobile-open') === 'true';
-    const next = !isOpen;
-    header.setAttribute('data-mobile-open', next);
-    toggle.setAttribute('aria-expanded', next);
-    nav.hidden = !next;
+    const currentlyOpen = header.dataset.mobileOpen === 'true';
+    setOpen(!currentlyOpen);
   });
 
-  /* Close mobile nav when a link is clicked. */
-  nav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      header.setAttribute('data-mobile-open', 'false');
-      toggle.setAttribute('aria-expanded', 'false');
-      nav.hidden = true;
-    });
+  nav.addEventListener('click', (event) => {
+    const link = event.target.closest('a');
+
+    if (link && mobileQuery.matches) {
+      setOpen(false);
+    }
   });
 
-  /* Ensure mobile nav is hidden by default. */
-  nav.hidden = true;
+  overlay?.addEventListener('click', () => {
+    setOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      header.dataset.mobileOpen === 'true'
+    ) {
+      setOpen(false, { returnFocus: true });
+    }
+  });
+
+  mobileQuery.addEventListener('change', () => {
+    setOpen(false);
+  });
+
+  setOpen(false);
 }
 
-/* Initialise. */
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
+
+  const year = document.getElementById('current-year');
+
+  if (year) {
+    year.textContent = String(new Date().getFullYear());
+  }
+
   router.start();
 });

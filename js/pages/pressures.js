@@ -1,131 +1,341 @@
-/*
- * DRC-deforestation — Human & Environmental Pressures module
- * Product specification section E.
- *
- * Layout: driver blocks (agriculture, charcoal, urban expansion, mining,
- * infrastructure, population) with per-driver causation caveats. Correlation
- * &ne; causation callout up front.
- */
+import {
+  pageIntro,
+  sectionHeading,
+  statusBadge,
+  callout,
+  featurePlaceholder,
+} from "../components/placeholder.js";
+
+import {
+  DATA_SOURCES,
+  getDataSource,
+} from "../data/placeholders.js";
+
+const PRESSURES = [
+  {
+    number: "01",
+    title: "Agricultural expansion",
+    description:
+      "Agriculture can contribute to forest conversion when land is cleared for crops, pasture, or small-scale farming. The relationship between agricultural activity and forest loss varies across locations and farming systems.",
+    mechanisms: [
+      "Expansion of cultivated land",
+      "Clearing for new agricultural plots",
+      "Shifting cultivation and fallow cycles",
+      "Commercial agricultural development",
+    ],
+    consideration:
+      "Agricultural land use is not automatically evidence of deforestation. Land-use history, previous vegetation, farming practices, and the period being studied all matter.",
+    status: "candidate",
+  },
+  {
+    number: "02",
+    title: "Charcoal and woodfuel",
+    description:
+      "Woodfuel remains an important source of household energy in many parts of the region. Demand for charcoal and firewood can create pressure on nearby woodland and forest resources, particularly around growing urban centres.",
+    mechanisms: [
+      "Wood harvesting for charcoal production",
+      "Collection of firewood",
+      "Commercial fuelwood supply chains",
+      "Expansion of harvesting areas as accessible resources decline",
+    ],
+    consideration:
+      "Wood harvesting can cause degradation without necessarily producing a complete loss of tree cover. A tree-cover-loss dataset alone cannot describe the full impact.",
+    status: "candidate",
+  },
+  {
+    number: "03",
+    title: "Urban expansion",
+    description:
+      "Growing settlements require land for housing, services, roads, and other infrastructure. Where expansion reaches forested areas, it can contribute to permanent land conversion and fragmentation.",
+    mechanisms: [
+      "Expansion of residential areas",
+      "New commercial and industrial zones",
+      "Roads and associated development",
+      "Conversion of land around growing settlements",
+    ],
+    consideration:
+      "Population growth and urban expansion are not interchangeable measurements. Population estimates can help provide context, but they do not establish the cause of a particular forest change.",
+    status: "candidate",
+  },
+  {
+    number: "04",
+    title: "Mining",
+    description:
+      "Mining activities can transform landscapes through excavation, access roads, settlements, and associated infrastructure. Their environmental footprint can extend beyond the extraction site.",
+    mechanisms: [
+      "Clearing for extraction sites",
+      "Construction of access roads",
+      "Development of processing and storage areas",
+      "Associated settlement and infrastructure growth",
+    ],
+    consideration:
+      "A mining location overlapping with forest change does not, by itself, prove that mining caused that change. Site-level evidence and temporal analysis are needed.",
+    status: "candidate",
+  },
+  {
+    number: "05",
+    title: "Transport and infrastructure",
+    description:
+      "Roads, energy infrastructure, and other development projects can directly transform land. They may also improve access to previously remote areas, potentially changing patterns of settlement and resource extraction.",
+    mechanisms: [
+      "Road and transport corridor construction",
+      "Energy and utility infrastructure",
+      "Construction sites and associated land conversion",
+      "Improved access to previously less accessible areas",
+    ],
+    consideration:
+      "Infrastructure effects can be direct or indirect. Evaluating them requires more than measuring the distance between a forest-loss observation and a road.",
+    status: "candidate",
+  },
+  {
+    number: "06",
+    title: "Population and resource demand",
+    description:
+      "Population distribution and demographic change can help explain where demand for land, food, energy, and infrastructure may increase. They are contextual factors, not direct measurements of environmental pressure.",
+    mechanisms: [
+      "Demand for agricultural land",
+      "Demand for household energy",
+      "Demand for housing and services",
+      "Changing patterns of resource consumption",
+    ],
+    consideration:
+      "WorldPop products are modelled population estimates. They should not be presented as direct census counts or used alone to attribute environmental change.",
+    status: "limited",
+  },
+];
+
+function renderPressureCard(item) {
+  return `
+    <article class="pressure-card">
+      <div class="pressure-card-top">
+        <span class="pressure-number">${item.number}</span>
+        ${statusBadge(item.status)}
+      </div>
+
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
+
+      <div class="pressure-mechanisms">
+        <h4>Possible pathways</h4>
+        <ul class="feature-list">
+          ${item.mechanisms
+            .map((mechanism) => `<li>${mechanism}</li>`)
+            .join("")}
+        </ul>
+      </div>
+
+      <div class="pressure-consideration">
+        <strong>Interpretation</strong>
+        <p>${item.consideration}</p>
+      </div>
+    </article>
+  `;
+}
 
 export function render() {
+  const worldPop = getDataSource("worldpop");
+
   return `
-    <section class="page" id="page-pressures" aria-label="Human & Environmental Pressures">
+    ${pageIntro({
+      eyebrow: "Human & environmental pressures",
+      title: "Understanding the pressures on forests",
+      description:
+        "Forest change is rarely explained by a single factor. Land use, energy needs, settlement growth, economic activity, and infrastructure can interact in different ways across the Democratic Republic of the Congo and the wider Congo Basin.",
+    })}
 
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Pressures</span>
-          <h2>Drivers of forest pressure</h2>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading-row">
+          <div>
+            <span class="eyebrow">The drivers</span>
+            <h2>Six areas to investigate</h2>
+            <p class="section-lead">
+              These are potential pressure pathways, not a measured ranking
+              of causes or their contribution to forest loss.
+            </p>
+          </div>
+        </div>
+
+        <div class="pressure-grid">
+          ${PRESSURES.map(renderPressureCard).join("")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container split-layout">
+        <div>
+          <span class="eyebrow">A connected system</span>
+          <h2>Pressures can reinforce one another</h2>
           <p>
-            Agriculture, urban expansion, charcoal/woodfuel, mining,
-            infrastructure and population context for the Congo Basin and DRC.
-            A driver is shown as a quantified cause only when a dataset or
-            study supports that attribution.
+            A new road may improve access to a remote area. That access may
+            support settlement, commercial activity, agricultural expansion,
+            or resource extraction. These activities can create additional
+            demand for land and infrastructure.
+          </p>
+          <p>
+            This is an example of a possible interaction, not proof that the
+            same sequence occurs in every location.
           </p>
         </div>
 
-        <div class="callout">
-          <h4>Correlation &ne; causation</h4>
-          <p>
-            Spatial association between a pressure and forest loss is not, by
-            itself, proof of cause. Spatial overlap is distinguished from
-            demonstrated causation throughout this section.
+        <div class="interaction-panel">
+          <div class="interaction-step">
+            <span>01</span>
+            <div>
+              <strong>Access and infrastructure</strong>
+              <p>Changes in physical accessibility.</p>
+            </div>
+          </div>
+
+          <div class="interaction-connector"></div>
+
+          <div class="interaction-step">
+            <span>02</span>
+            <div>
+              <strong>Economic and settlement activity</strong>
+              <p>Changes in land use and resource demand.</p>
+            </div>
+          </div>
+
+          <div class="interaction-connector"></div>
+
+          <div class="interaction-step">
+            <span>03</span>
+            <div>
+              <strong>Environmental change</strong>
+              <p>Potential conversion, fragmentation, or degradation.</p>
+            </div>
+          </div>
+
+          <p class="small muted interaction-note">
+            Conceptual relationship. Actual pathways require location-specific
+            evidence.
           </p>
         </div>
       </div>
+    </section>
 
-      <div class="section">
-        <div class="grid-3">
-          <div class="feature">
-            <div class="feature-icon">&#127792;</div>
-            <div class="feature-body">
-              <h3>Agriculture</h3>
-              <p>Uncontrolled farmland expansion and forest conversion for
-              crops. Driver context only &mdash; causation not asserted without
-              supporting evidence.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128294;</div>
-            <div class="feature-body">
-              <h3>Charcoal &amp; woodfuel</h3>
-              <p>Dependence on charcoal as a primary fuel, especially in
-              growing cities such as Kinshasa. Driver context only.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#127968;</div>
-            <div class="feature-body">
-              <h3>Urban expansion</h3>
-              <p>City growth into forest edges, with associated infrastructure
-              and land-use change. Driver context only.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128736;</div>
-            <div class="feature-body">
-              <h3>Mining</h3>
-              <p>Mining operations and access roads opening forest areas.
-              Driver context only &mdash; causation not asserted.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128663;</div>
-            <div class="feature-body">
-              <h3>Infrastructure</h3>
-              <p>Roads, dams and energy infrastructure fragmenting forest and
-              enabling further pressure. Driver context only.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128194;</div>
-            <div class="feature-body">
-              <h3>Population context</h3>
-              <p>Gridded population estimates (candidate: WorldPop) as context,
-              not as evidence that population growth caused a specific loss.</p>
-            </div>
-          </div>
+    <section class="section">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Evidence and interpretation",
+          title: "What would it take to identify a driver?",
+          description:
+            "A credible assessment needs several kinds of evidence rather than a single map layer or statistical correlation.",
+        })}
+
+        <div class="evidence-grid">
+          <article class="evidence-item">
+            <span class="evidence-index">A</span>
+            <h3>Observe the change</h3>
+            <p>
+              Identify where and when forest-cover or land-use change
+              occurred, using a clearly defined dataset and period.
+            </p>
+          </article>
+
+          <article class="evidence-item">
+            <span class="evidence-index">B</span>
+            <h3>Examine the context</h3>
+            <p>
+              Compare relevant information about agriculture, roads,
+              settlements, mining, or other activities.
+            </p>
+          </article>
+
+          <article class="evidence-item">
+            <span class="evidence-index">C</span>
+            <h3>Test the relationship</h3>
+            <p>
+              Investigate timing, spatial patterns, alternative explanations,
+              and the limitations of the available evidence.
+            </p>
+          </article>
+        </div>
+
+        ${callout({
+          type: "warning",
+          title: "Correlation is not causation",
+          message:
+            "Two activities occurring in the same area does not establish that one caused the other. Causal claims require appropriate methods, temporal evidence, and consideration of alternative explanations.",
+        })}
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container">
+        ${sectionHeading({
+          eyebrow: "Potential supporting data",
+          title: "Context is useful, but it has limits",
+          description:
+            "The following sources are candidates for future analysis. They are not currently integrated into this page.",
+        })}
+
+        <div class="source-highlight-grid">
+          <article class="source-highlight">
+            <h3>Population distribution</h3>
+            <p>
+              ${worldPop?.description ??
+              "WorldPop provides modelled population datasets that may help contextualise settlement and resource demand."}
+            </p>
+            ${statusBadge("limited")}
+            <p class="small muted">
+              Population estimates do not establish the cause of forest change.
+            </p>
+          </article>
+
+          <article class="source-highlight">
+            <h3>Forest-cover change</h3>
+            <p>
+              Satellite-derived tree-cover change products may help identify
+              where changes occurred. They do not automatically explain why
+              those changes happened.
+            </p>
+            ${statusBadge("candidate")}
+          </article>
+
+          <article class="source-highlight">
+            <h3>Mining and infrastructure</h3>
+            <p>
+              Reliable, appropriately licensed and time-relevant spatial
+              information is needed before these activities can be compared
+              with observed environmental change.
+            </p>
+            ${statusBadge("deferred")}
+          </article>
+        </div>
+
+        <div class="section-actions">
+          <a class="btn btn-primary" href="#data-methodology">
+            Explore data and methodology
+          </a>
+          <a class="text-link" href="#forest-intelligence">
+            Explore forest intelligence
+          </a>
         </div>
       </div>
+    </section>
 
-      <!-- Data readiness -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Data status</span>
-          <h2>Pressure data pending integration</h2>
-          <p>
-            Quantified pressure indicators will appear here once a verified,
-            attributed dataset is integrated. Until then, each driver is
-            described qualitatively with its caveats.
-          </p>
-        </div>
-        <div class="indicator-grid">
-          <div class="indicator">
-            <span class="label">Agriculture</span>
-            <span class="title">Qualitative context</span>
-            <span class="note">Source pending &mdash; causation not asserted</span>
+    <section class="section">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <span class="eyebrow">Beyond the numbers</span>
+            <h2>Understanding pressure is the first step toward better decisions.</h2>
+            <p>
+              Explore the environmental context, learn how to interpret
+              evidence, and discover practical ways to support forest
+              conservation.
+            </p>
           </div>
-          <div class="indicator">
-            <span class="label">Charcoal / woodfuel</span>
-            <span class="title">Qualitative context</span>
-            <span class="note">Source pending &mdash; causation not asserted</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Urban expansion</span>
-            <span class="title">Qualitative context</span>
-            <span class="note">Source pending &mdash; causation not asserted</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Population</span>
-            <span class="title">Candidate: WorldPop</span>
-            <span class="note">Modelled estimates &ne; census counts</span>
-          </div>
+          <a class="btn btn-primary" href="#learn-act">Learn and take action</a>
         </div>
       </div>
-
     </section>
   `;
 }
 
 export function init() {
-  /* Pressure layer integration happens in a later batch. */
+  // No interactive data visualisation is currently implemented.
 }

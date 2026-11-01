@@ -1,127 +1,418 @@
 /*
- * DRC-deforestation — Forest Intelligence module
- * Product specification section C.
+ * DRC-deforestation
+ * Forest intelligence
  *
- * Layout: key distinctions callout > indicator rows > time-series placeholder
- * > geographic comparison. Definition-list first, then indicators.
+ * Introduces the concepts and indicators needed to interpret
+ * forest information responsibly.
  */
+
+import {
+  pageIntro,
+  sectionHeading,
+  callout,
+  featurePlaceholder,
+} from '../components/placeholder.js';
 
 export function render() {
   return `
-    <section class="page" id="page-forest-intelligence" aria-label="Forest Intelligence">
+    <div class="page">
 
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Forest Intelligence</span>
-          <h2>Forest extent, change and disturbance</h2>
-          <p>
-            Indicators for the Congo Basin and DRC, each traceable to a source,
-            with definitions explained. Projections are labelled as scenarios,
-            never as observed facts.
-          </p>
-        </div>
+      ${pageIntro({
+        eyebrow: 'Forest intelligence',
+        title: 'Understanding what happens to a forest.',
+        description:
+          'Forest change is not a single measurement. Explore the different indicators used to describe forest extent, tree-cover change, disturbance and degradation.',
+      })}
 
-        <!-- Required distinctions -->
-        <div class="callout">
-          <h4>Read the terms carefully</h4>
-          <p>
-            Forest area is not the same as tree-cover canopy. Tree-cover loss
-            is not automatically equivalent to permanent deforestation. Fire
-            detections are not the same as burned area. These distinctions are
-            disclosed with every indicator.
-          </p>
-        </div>
-      </div>
 
-      <!-- Indicators -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Indicators</span>
-          <h2>Initial indicators (pending data integration)</h2>
-          <p>
-            Candidate sources per indicator are shown. No values are displayed
-            as observed facts until a verified dataset is integrated.
-          </p>
-        </div>
-        <div class="indicator-grid">
-          <div class="indicator">
-            <span class="label">Forest extent</span>
-            <span class="title">Country-reported forest area</span>
-            <span class="note">Candidate: FAO FRA 2025 &bull; CC BY 4.0 &bull; DRC section</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Tree-cover loss</span>
-            <span class="title">Annual change indicator</span>
-            <span class="note">Candidate: Global Forest Watch &bull; 30 m &bull; 2001&ndash;2024 &bull; loss &ne; deforestation</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Active fires</span>
-            <span class="title">Fire observation layer</span>
-            <span class="note">Candidate: NASA FIRMS &bull; MODIS / VIIRS &bull; detection &ne; burned area</span>
-          </div>
-          <div class="indicator">
-            <span class="label">Forest degradation</span>
-            <span class="title">Derived disturbance indicator</span>
-            <span class="note">No ready-made dataset; requires processing. Deferred.</span>
-          </div>
-        </div>
-      </div>
+      <!-- CENTRAL DISTINCTION -->
+      <section class="container">
 
-      <!-- Time series -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Historical view</span>
-          <h2>Time-series charts</h2>
-          <p>
-            Historical forest-change charts clearly identify the dataset and
-            methodology used. Charts appear here once real data is integrated.
-          </p>
-        </div>
-        <div class="figure">
-          <div class="figure-img" aria-label="Forest change time-series placeholder">
-            [ Time-series chart placeholder &mdash; forest extent and tree-cover
-            loss trends by year, with dataset, period and method labelled ]
-          </div>
-          <p class="figure-caption">
-            Chart placeholder. Real charts will use Chart.js with verified data
-            and full axis/legend labels.
-          </p>
-        </div>
-      </div>
+        ${callout({
+          title: 'An essential distinction',
+          message:
+            'Tree-cover loss and deforestation are not interchangeable. Tree-cover loss describes the removal or death of tree cover detected by a particular dataset. Deforestation generally refers to the conversion of forest to another land use or a long-term change in forest status.',
+          type: 'warning',
+        })}
 
-      <!-- Geographic comparison -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Compare areas</span>
-          <h2>Geographic comparison</h2>
-          <p>
-            Side-by-side comparison of forest indicators across areas using
-            harmonised metrics and comparable periods.
-          </p>
+      </section>
+
+
+      <!-- INDICATORS -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'The indicators',
+            title: 'Different measurements answer different questions.',
+            description:
+              'Before interpreting an environmental indicator, understand the phenomenon it actually measures.',
+          })}
+
+          <div class="content-grid grid-2">
+
+            <article class="card">
+              <span class="kicker">Indicator 01</span>
+
+              <h3>Forest area</h3>
+
+              <p>
+                The area classified as forest according to
+                a specified definition and reporting method.
+              </p>
+
+              <p class="small muted">
+                Useful for understanding the extent of forest
+                resources at a defined geographical and temporal scale.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Indicator 02</span>
+
+              <h3>Tree cover</h3>
+
+              <p>
+                The proportion of land covered by the vertical
+                projection of tree crowns, often measured using
+                a specified canopy threshold.
+              </p>
+
+              <p class="small muted">
+                A tree-cover threshold does not automatically
+                correspond to a formal forest definition.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Indicator 03</span>
+
+              <h3>Tree-cover loss</h3>
+
+              <p>
+                A satellite-derived observation of the removal
+                or death of tree cover within the methodology
+                and definitions of a particular dataset.
+              </p>
+
+              <p class="small muted">
+                Causes can include permanent conversion,
+                temporary disturbance, harvesting, fire
+                and other events.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Indicator 04</span>
+
+              <h3>Deforestation</h3>
+
+              <p>
+                The conversion of forest to another land use
+                or the long-term loss of forest status under
+                the applicable definition.
+              </p>
+
+              <p class="small muted">
+                Determining deforestation requires more
+                context than observing a change in tree cover.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Indicator 05</span>
+
+              <h3>Forest degradation</h3>
+
+              <p>
+                A reduction in forest condition or ecological
+                quality that does not necessarily result in
+                complete forest removal.
+              </p>
+
+              <p class="small muted">
+                Degradation can be difficult to detect and
+                requires indicators suited to the phenomenon.
+              </p>
+            </article>
+
+
+            <article class="card">
+              <span class="kicker">Indicator 06</span>
+
+              <h3>Forest restoration</h3>
+
+              <p>
+                Actions and processes intended to recover
+                ecological functions, forest structure
+                or other desired forest characteristics.
+              </p>
+
+              <p class="small muted">
+                Tree planting alone does not prove that
+                a degraded ecosystem has been restored.
+              </p>
+            </article>
+
+          </div>
+
         </div>
-        <div class="grid-2">
-          <div class="feature">
-            <div class="feature-icon">&#128205;</div>
-            <div class="feature-body">
-              <h3>Harmonised metrics</h3>
-              <p>All comparisons use common units and periods so values are
-              directly comparable.</p>
+      </section>
+
+
+      <!-- HOW TO READ FOREST DATA -->
+      <section class="section section-sm">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Reading the evidence',
+            title: 'What should accompany a forest indicator?',
+            description:
+              'A responsible forest analysis should provide enough information for another person to understand and assess the result.',
+          })}
+
+          <div class="content-grid grid-3">
+
+            <article class="card card-soft">
+              <span class="card-number">01</span>
+
+              <h3>Definition</h3>
+
+              <p>
+                What does the dataset call forest, loss,
+                disturbance or change?
+              </p>
+            </article>
+
+
+            <article class="card card-soft">
+              <span class="card-number">02</span>
+
+              <h3>Spatial resolution</h3>
+
+              <p>
+                What geographical detail can the observation
+                reliably represent?
+              </p>
+            </article>
+
+
+            <article class="card card-soft">
+              <span class="card-number">03</span>
+
+              <h3>Observation period</h3>
+
+              <p>
+                Which years or dates are covered, and when
+                was the dataset last updated?
+              </p>
+            </article>
+
+
+            <article class="card card-soft">
+              <span class="card-number">04</span>
+
+              <h3>Methodology</h3>
+
+              <p>
+                How were observations collected, classified
+                and processed?
+              </p>
+            </article>
+
+
+            <article class="card card-soft">
+              <span class="card-number">05</span>
+
+              <h3>Uncertainty</h3>
+
+              <p>
+                What errors, omissions or classification
+                limitations may affect the result?
+              </p>
+            </article>
+
+
+            <article class="card card-soft">
+              <span class="card-number">06</span>
+
+              <h3>Geographical scope</h3>
+
+              <p>
+                Does the result describe a country, a forest
+                region, a river basin or a particular site?
+              </p>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- DATA SOURCES -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Potential data sources',
+            title: 'From environmental observations to analysis.',
+            description:
+              'Several established resources could support future forest monitoring. Their presence here does not mean their data has already been integrated.',
+          })}
+
+          <div class="content-grid grid-2">
+
+            <article class="card">
+              <span class="badge badge-candidate">Candidate source</span>
+
+              <h3 class="mt-2">FAO Forest Resources Assessment</h3>
+
+              <p>
+                Country-reported information about forest
+                resources, including forest area and changes
+                over reporting periods.
+              </p>
+
+              <a
+                class="text-link"
+                href="https://www.fao.org/forest-resources-assessment/en/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit FAO
+              </a>
+            </article>
+
+
+            <article class="card">
+              <span class="badge badge-candidate">Candidate source</span>
+
+              <h3>Global Forest Watch</h3>
+
+              <p>
+                A platform providing access to forest-related
+                information and datasets, including satellite-derived
+                tree-cover change products.
+              </p>
+
+              <a
+                class="text-link"
+                href="https://www.globalforestwatch.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit Global Forest Watch
+              </a>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- CHART PLACEHOLDER -->
+      <section class="section section-sm">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Forest monitoring',
+            title: 'Following forest change over time.',
+            description:
+              'A time-series view can help reveal patterns, but only when observations are comparable and their definitions remain clear.',
+          })}
+
+          ${featurePlaceholder({
+            title: 'Forest change time series',
+            description:
+              'A validated time-series visualisation will be added after selecting and integrating a suitable dataset. No forest-loss values are fabricated or displayed here.',
+            status: 'planned',
+          })}
+
+        </div>
+      </section>
+
+
+      <!-- INTERPRETATION -->
+      <section class="section">
+        <div class="container">
+
+          <div class="story-section">
+
+            <div class="story-copy">
+
+              <span class="eyebrow">Responsible interpretation</span>
+
+              <h2>
+                A change detected from space is the beginning
+                of an investigation.
+              </h2>
+
+              <p>
+                Satellite observations can identify patterns
+                and changes across large areas. They do not
+                automatically reveal why a change occurred,
+                whether it is permanent or what its consequences
+                are for nearby communities.
+              </p>
+
+              <p>
+                Interpretation requires additional evidence,
+                local context and a clear understanding of
+                the dataset's methodology.
+              </p>
+
+              <a class="text-link" href="#pressures">
+                Explore human and environmental pressures
+              </a>
+
             </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#128202;</div>
-            <div class="feature-body">
-              <h3>Area selection</h3>
-              <p>Choose Basin countries, DRC provinces or landscapes to compare.</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-    </section>
+            <div class="story-visual">
+              <div class="visual-caption">
+                Observation provides evidence.
+                Interpretation requires context.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <section class="cta-section">
+        <div class="container cta-inner">
+
+          <div>
+            <span class="eyebrow">Explore the wider ecosystem</span>
+
+            <h2>
+              Forests are also habitats for extraordinary biodiversity.
+            </h2>
+
+            <p>
+              Discover why understanding forest ecosystems
+              also means understanding the life within them.
+            </p>
+          </div>
+
+          <a class="btn btn-light" href="#biodiversity">
+            Explore biodiversity
+          </a>
+
+        </div>
+      </section>
+
+    </div>
   `;
 }
 
 export function init() {
-  /* Chart integration happens in a later batch. */
+  // Charts will be implemented only after validated data integration.
 }

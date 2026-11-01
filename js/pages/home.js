@@ -1,163 +1,413 @@
 /*
- * DRC-deforestation — Homepage module
- * Product specification section A.
+ * DRC-deforestation
+ * Homepage
  *
- * Layout: hero > "why it matters" feature blocks > platform capabilities
- * > entry points > educational intro > data notice. No fabricated statistics.
+ * Introduces the platform, its geographical focus and its purpose.
+ * No unverified environmental statistics are presented as facts.
  */
+
+import {
+  sectionHeading,
+  callout,
+  statusBadge,
+} from '../components/placeholder.js';
 
 export function render() {
   return `
-    <section class="page" id="page-home" aria-label="Home">
+    <div class="page">
 
-      <!-- Hero -->
-      <div class="hero">
-        <span class="kicker">Environmental intelligence platform</span>
-        <h1>The Congo Basin, understood.</h1>
-        <p class="lead">
-          DRC-deforestation makes trustworthy information about deforestation,
-          urban growth and forest pressure in the Congo Basin accessible,
-          understandable and useful &mdash; with deeper analysis of the
-          Democratic Republic of the Congo (DRC).
-        </p>
-        <div class="hero-actions">
-          <a href="#explore" class="btn">Explore the Basin</a>
-          <a href="#forest-intelligence" class="btn btn-outline">Forest Intelligence</a>
-        </div>
-        <div class="hero-figure">
-          [ Authentic Congo Basin forest imagery to be sourced &mdash;
-          placeholder reserved for visual identity ]
-        </div>
-      </div>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-content">
 
-      <!-- Why the Congo Basin matters -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Why it matters</span>
-          <h2>The Congo Basin at a glance</h2>
-          <p>
-            The Congo Basin holds the world&rsquo;s second-largest tropical
-            rainforest and over half of Africa&rsquo;s remaining forest cover.
-            The Democratic Republic of the Congo alone contains the largest
-            share of it. Understanding how cities, charcoal production,
-            agriculture and fire shape this landscape is essential for
-            communities, researchers and policymakers alike.
-          </p>
-        </div>
-        <div class="grid-3">
-          <div class="feature">
-            <div class="feature-icon">&#127795;</div>
-            <div class="feature-body">
-              <h3>Vast forest carbon store</h3>
-              <p>The Congo Basin sequesters enormous quantities of carbon,
-              making its protection a global climate priority.</p>
+            <span class="eyebrow">
+              Understanding a changing landscape
+            </span>
+
+            <h1>
+              The forest is more than
+              <span>what we see.</span>
+            </h1>
+
+            <p class="hero-description">
+              Explore the forests, biodiversity and environmental
+              pressures shaping the Congo Basin, with a deeper focus
+              on the Democratic Republic of the Congo.
+            </p>
+
+            <div class="btn-group">
+              <a class="btn btn-light" href="#explore">
+                Explore the region
+              </a>
+
+              <a class="btn btn-outline" href="#learn-act">
+                Understand the challenge
+              </a>
             </div>
+
           </div>
-          <div class="feature">
-            <div class="feature-icon">&#128051;</div>
-            <div class="feature-body">
-              <h3>Rich biodiversity</h3>
-              <p>Home to forest elephants, gorillas, okapi and thousands of
-              plant species found nowhere else on Earth.</p>
+        </div>
+
+        <div class="hero-caption">
+          Congo Basin · Democratic Republic of the Congo
+        </div>
+      </section>
+
+
+      <!-- INTRODUCTION -->
+      <section class="intro-band">
+        <div class="container intro-band-inner">
+
+          <div>
+            <span class="eyebrow">A living landscape</span>
+
+            <h2>
+              A connected forest,
+              a shared responsibility.
+            </h2>
+          </div>
+
+          <div>
+            <p>
+              The Congo Basin is a vast and interconnected ecological
+              region. Its forests, rivers, wetlands and communities
+              form a landscape whose environmental changes cannot
+              be understood through a single indicator.
+            </p>
+
+            <p>
+              This platform brings together environmental concepts,
+              potential data sources and geographical context to help
+              people understand what is changing, where it is changing
+              and what the available evidence can actually tell us.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- EXPLORE THE PLATFORM -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Explore the platform',
+            title: 'Different perspectives. One connected ecosystem.',
+            description:
+              'Move from the geography of the Congo Basin to the forest, its biodiversity and the human activities that influence its landscapes.',
+          })}
+
+          <div class="content-grid grid-3">
+
+            <article class="card card-hover">
+              <span class="card-number">01</span>
+
+              <span class="kicker">Geography</span>
+
+              <h3>Explore the Basin</h3>
+
+              <p>
+                Understand the region, its countries and the
+                geographical distinctions that matter when
+                interpreting environmental information.
+              </p>
+
+              <a class="text-link" href="#explore">
+                Explore geography
+              </a>
+            </article>
+
+
+            <article class="card card-hover">
+              <span class="card-number">02</span>
+
+              <span class="kicker">Forest systems</span>
+
+              <h3>Forest intelligence</h3>
+
+              <p>
+                Learn how forest area, tree-cover change,
+                disturbance and forest degradation differ.
+              </p>
+
+              <a class="text-link" href="#forest-intelligence">
+                Understand forest change
+              </a>
+            </article>
+
+
+            <article class="card card-hover">
+              <span class="card-number">03</span>
+
+              <span class="kicker">Living systems</span>
+
+              <h3>Biodiversity</h3>
+
+              <p>
+                Explore the importance of biodiversity and
+                the opportunities and limitations of species
+                occurrence information.
+              </p>
+
+              <a class="text-link" href="#biodiversity">
+                Discover biodiversity
+              </a>
+            </article>
+
+
+            <article class="card card-hover">
+              <span class="card-number">04</span>
+
+              <span class="kicker">Human activity</span>
+
+              <h3>Environmental pressures</h3>
+
+              <p>
+                Examine agriculture, woodfuel, mining,
+                infrastructure and urban expansion as
+                potential drivers of landscape change.
+              </p>
+
+              <a class="text-link" href="#pressures">
+                Explore pressures
+              </a>
+            </article>
+
+
+            <article class="card card-hover">
+              <span class="card-number">05</span>
+
+              <span class="kicker">Knowledge</span>
+
+              <h3>Learn &amp; act</h3>
+
+              <p>
+                Build a stronger understanding of forest
+                ecosystems, environmental change and
+                responsible action.
+              </p>
+
+              <a class="text-link" href="#learn-act">
+                Start learning
+              </a>
+            </article>
+
+
+            <article class="card card-hover">
+              <span class="card-number">06</span>
+
+              <span class="kicker">Evidence</span>
+
+              <h3>Data &amp; methodology</h3>
+
+              <p>
+                Examine the sources, definitions, licenses
+                and limitations behind the information
+                presented on this platform.
+              </p>
+
+              <a class="text-link" href="#data-methodology">
+                Examine the evidence
+              </a>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- FOREST STORY -->
+      <section class="section section-sm">
+        <div class="container">
+
+          <div class="story-section">
+
+            <div class="story-visual">
+              <div class="visual-caption">
+                Forest landscapes are complex systems,
+                not simply areas covered by trees.
+              </div>
             </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">&#127793;</div>
-            <div class="feature-body">
-              <h3>Rapid urban growth</h3>
-              <p>Cities such as Kinshasa are among Africa&rsquo;s fastest
-              growing, placing new pressure on forest edges.</p>
+
+            <div class="story-copy">
+
+              <span class="eyebrow">Beyond the canopy</span>
+
+              <h2>
+                Understanding forest change
+                requires more than counting trees.
+              </h2>
+
+              <p>
+                Forest area, tree cover, tree-cover loss and
+                deforestation describe related but different
+                things. Treating them as interchangeable can
+                lead to misleading conclusions.
+              </p>
+
+              <p>
+                Reliable environmental analysis begins by
+                understanding what an indicator measures,
+                what it leaves out and how it was produced.
+              </p>
+
+              <a class="text-link" href="#forest-intelligence">
+                Explore forest intelligence
+              </a>
+
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Platform capabilities -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">What you can explore</span>
-          <h2>Capabilities of the platform</h2>
-          <p>
-            Each section below opens a dedicated view. Where real data is not
-            yet integrated, the section explains what will be shown and from
-            which verified source.
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- EVIDENCE FIRST -->
+      <section class="section">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Evidence before conclusions',
+            title: 'Environmental information needs context.',
+            description:
+              'A number, map or satellite observation is only useful when its meaning, source and limitations are understood.',
+          })}
+
+          <div class="content-grid grid-3">
+
+            <article class="card card-soft">
+              <span class="card-icon" aria-hidden="true">01</span>
+
+              <h3>Know what is measured</h3>
+
+              <p>
+                A satellite detection, a national forest estimate
+                and a biodiversity observation are different
+                forms of evidence.
+              </p>
+            </article>
+
+            <article class="card card-soft">
+              <span class="card-icon" aria-hidden="true">02</span>
+
+              <h3>Understand where and when</h3>
+
+              <p>
+                Geographical coverage, observation periods,
+                spatial resolution and reporting dates affect
+                what comparisons are meaningful.
+              </p>
+            </article>
+
+            <article class="card card-soft">
+              <span class="card-icon" aria-hidden="true">03</span>
+
+              <h3>Respect uncertainty</h3>
+
+              <p>
+                Environmental relationships are complex.
+                Correlation, observation and causation should
+                never be confused.
+              </p>
+            </article>
+
+          </div>
+
+          <div class="mt-4">
+            ${callout({
+              title: 'A transparent platform',
+              message:
+                'The environmental data visualisations are being developed in stages. A proposed dataset or future feature is not presented as an operational measurement.',
+              type: 'info',
+            })}
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- PLATFORM STATUS -->
+      <section class="stat-band">
+        <div class="container">
+
+          <div class="section-heading">
+            <span class="eyebrow">Our approach</span>
+
+            <h2 class="text-white">
+              Built around trustworthy evidence.
+            </h2>
+
+            <p>
+              The platform prioritises clear definitions,
+              transparent sourcing and responsible interpretation.
+            </p>
+          </div>
+
+          <div class="stat-grid">
+
+            <div class="stat-item">
+              <span class="stat-value">01</span>
+              <span class="stat-label">
+                Transparent data sources
+              </span>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-value">02</span>
+              <span class="stat-label">
+                Clearly defined indicators
+              </span>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-value">03</span>
+              <span class="stat-label">
+                Explicit limitations
+              </span>
+            </div>
+
+          </div>
+
+          <p class="stat-disclaimer">
+            These numbers identify platform principles,
+            not environmental measurements.
           </p>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Explore the Basin</h3>
-            <p>Interactive map with documented basin and country boundaries,
-            country comparison and DRC-focused exploration.</p>
-            <a href="#explore" class="btn btn-sm btn-ghost">Go to Explore</a>
-          </div>
-          <div class="card">
-            <h3>Forest Intelligence</h3>
-            <p>Forest extent, tree-cover loss, degradation indicators and
-            fire observations with traceable sources.</p>
-            <a href="#forest-intelligence" class="btn btn-sm btn-ghost">Go to Forest Intelligence</a>
-          </div>
-          <div class="card">
-            <h3>Biodiversity &amp; Conservation</h3>
-            <p>Protected areas, OECMs and species occurrence records with
-            full provenance.</p>
-            <a href="#biodiversity" class="btn btn-sm btn-ghost">Go to Biodiversity</a>
-          </div>
-        </div>
-        <div class="grid-2 mt-8">
-          <div class="card">
-            <h3>Human &amp; Environmental Pressures</h3>
-            <p>Agriculture, charcoal/woodfuel, urban expansion, mining,
-            infrastructure and population context.</p>
-            <a href="#pressures" class="btn btn-sm btn-ghost">Go to Pressures</a>
-          </div>
-          <div class="card">
-            <h3>Learn &amp; Act</h3>
-            <p>Educational explainers, conservation responses and practical
-            actions for communities and institutions.</p>
-            <a href="#learn-act" class="btn btn-sm btn-ghost">Go to Learn &amp; Act</a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Educational intro -->
-      <div class="section">
-        <div class="section-header">
-          <span class="kicker">Learn more</span>
-          <h2>Understanding deforestation</h2>
-          <p>
-            Deforestation is not a single event. It is the result of interacting
-            pressures &mdash; charcoal production, unplanned agriculture,
-            mining, infrastructure and urban expansion &mdash; amplified by
-            climate change. The platform explains each driver, its consequences
-            and the responses available.
-          </p>
         </div>
-        <div class="callout">
-          <h4>How to read the data here</h4>
-          <p>
-            Every indicator on this platform is tied to a source, a date,
-            a definition and a geography. Where no reliable data is available,
-            the gap is shown rather than inventing a value. Satellite alerts
-            are not automatically confirmed deforestation events, and species
-            occurrences are not population estimates.
-          </p>
+      </section>
+
+
+      <!-- FINAL CTA -->
+      <section class="cta-section">
+        <div class="container cta-inner">
+
+          <div>
+            <span class="eyebrow">Start exploring</span>
+
+            <h2>
+              Better understanding begins with better questions.
+            </h2>
+
+            <p>
+              Discover the region, learn about its ecosystems
+              and examine the evidence behind environmental change.
+            </p>
+          </div>
+
+          <a class="btn btn-light" href="#explore">
+            Explore the Congo Basin
+          </a>
+
         </div>
-      </div>
+      </section>
 
-      <!-- Data notice -->
-      <div class="data-notice">
-        <strong>Release status:</strong> This release establishes the platform
-        foundation. No environmental statistics are presented as observed
-        facts; placeholders mark where verified data will appear once
-        integrated from a documented source. See
-        <a href="#data-methodology">Data &amp; Methodology</a> for the source
-        register and licensing.
-      </div>
-
-    </section>
+    </div>
   `;
 }
 
 export function init() {
-  /* No page-specific setup required. */
+  // The homepage currently contains no interactive data visualisations.
 }
