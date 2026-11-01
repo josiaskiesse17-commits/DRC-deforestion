@@ -875,8 +875,6 @@ ol {
       rgba(12, 35, 29, 0.84) 48%,
       rgba(12, 35, 29, 0.35) 100%
     ),
-    linear-gradient(0deg, rgba(12, 35, 29, 0.24), rgba(12, 35, 29, 0.24)),
-    url("../assets/images/congo-forest-hero.jpg") center 48% / cover,
     var(--forest-900);
   color: white;
 }
