@@ -13,6 +13,10 @@ import {
   featurePlaceholder,
 } from '../components/placeholder.js';
 
+import {
+  renderImageAttribution,
+} from '../data/image-attribution.js';
+
 export function render() {
   return `
     <div class="page">
@@ -316,6 +320,60 @@ export function render() {
       </section>
 
 
+      <!-- BEFORE/AFTER COMPARISON -->
+      <section class="section section-sm">
+        <div class="container">
+
+          ${sectionHeading({
+            eyebrow: 'Satellite observations',
+            title: 'Forest change around Virunga National Park.',
+            description:
+              'Landsat satellite imagery shows forest loss near the eastern border of the Democratic Republic of the Congo, around Virunga National Park and the city of Beni. These are genuine before-and-after observations from 1999 and 2008.',
+          })}
+
+          <div class="before-after-slider">
+            <div class="before-image">
+              <img
+                src="assets/images/nasa/drc-deforestation-1999-landsat.jpg"
+                alt="Landsat 5 satellite image of the Virunga National Park region near Beni, DRC, February 13, 1999"
+                loading="lazy"
+              />
+            </div>
+            <img
+              src="assets/images/nasa/drc-deforestation-2008-landsat.jpg"
+              alt="Landsat 5 satellite image of the Virunga National Park region near Beni, DRC, September 1, 2008"
+              loading="lazy"
+            />
+            <div class="slider-handle" aria-label="Compare before and after" role="separator"></div>
+            <div class="slider-label label-before">Before — Feb 13, 1999</div>
+            <div class="slider-label label-after">After — Sep 1, 2008</div>
+            <div class="slider-hint">Slide to compare</div>
+            <div class="slider-caption">
+              Forest loss around Virunga National Park, DRC. The rate of forest loss shown in
+              these two images is the highest among all national parks in the country.
+              Landsat 5 images by NASA Earth Observatory / Jesse Allen and Robert Simmon,
+              using Landsat data from USGS.
+            </div>
+          </div>
+
+          <div class="image-attribution" style="margin-top:16px;">
+            <span>Images:</span>
+            Deforestation in the Democratic Republic of the Congo · Sep 26, 2012 &middot;
+            <span>Source:</span>
+            <a
+              href="https://science.nasa.gov/earth/earth-observatory/deforestation-in-the-democratic-republic-of-the-congo-79276/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              NASA Earth Observatory
+            </a>
+            &middot; NASA imagery is public domain. Credit: NASA Earth Observatory / Jesse Allen and Robert Simmon, using Landsat data from the USGS Global Visualization Viewer and park boundary data from Protected Planet.
+          </div>
+
+        </div>
+      </section>
+
+
       <!-- CHART PLACEHOLDER -->
       <section class="section section-sm">
         <div class="container">
@@ -374,10 +432,28 @@ export function render() {
             </div>
 
             <div class="story-visual">
+              <img
+                src="assets/images/nasa/kisangani-forest-2024-landsat.jpg"
+                alt="Landsat satellite image showing forest change around Kisangani, Tshopo province, Democratic Republic of the Congo"
+                loading="lazy"
+              />
               <div class="visual-caption">
-                Observation provides evidence.
-                Interpretation requires context.
+                Satellite observations can identify patterns and changes
+                across large areas.
               </div>
+            </div>
+            <div class="image-attribution" style="margin-top:12px;">
+              <span>Image:</span>
+              Reshaping the Forests Around Kisangani · Sep 22, 2025 &middot;
+              <span>Source:</span>
+              <a
+                href="https://science.nasa.gov/earth/earth-observatory/reshaping-the-forests-around-kisangani-154817/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NASA Earth Observatory
+              </a>
+              &middot; NASA imagery is public domain. Credit: NASA Earth Observatory / Wanmei Liang, using forest change data from University of Maryland.
             </div>
 
           </div>
@@ -414,5 +490,109 @@ export function render() {
 }
 
 export function init() {
-  // Charts will be implemented only after validated data integration.
+  initBeforeAfterSlider();
+}
+
+/**
+ * Initialise the before/after image comparison slider.
+ *
+ * Supports mouse drag, touch drag, and click interactions.
+ * Keyboard accessible via arrow keys on the handle.
+ */
+function initBeforeAfterSlider() {
+  const slider = document.querySelector('.before-after-slider');
+
+  if (!slider) return;
+
+  const handle = slider.querySelector('.slider-handle');
+  const beforeImage = slider.querySelector('.before-image');
+  const afterImage = slider.querySelector('img:not(.before-image img)');
+
+  if (!handle || !beforeImage || !afterImage) return;
+
+  let isDragging = false;
+
+  function updatePosition(clientX) {
+    const rect = slider.getBoundingClientRect();
+    let offset = clientX - rect.left;
+    let percentage = (offset / rect.width) * 100;
+
+    if (percentage < 0) percentage = 0;
+    if (percentage > 100) percentage = 100;
+
+    beforeImage.style.width = percentage + '%';
+    handle.style.left = percentage + '%';
+    afterImage.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+    afterImage.style.webkitClipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+  }
+
+  function startDrag(event) {
+    isDragging = true;
+    handle.classList.add('dragging');
+    slider.classList.add('dragging');
+  }
+
+  function endDrag() {
+    isDragging = false;
+    handle.classList.remove('dragging');
+    slider.classList.remove('dragging');
+  }
+
+  function drag(event) {
+    if (!isDragging) return;
+    event.preventDefault();
+
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    updatePosition(clientX);
+  }
+
+  // Mouse events
+  handle.addEventListener('mousedown', startDrag);
+  window.addEventListener('mousemove', drag);
+  window.addEventListener('mouseup', endDrag);
+
+  // Touch events
+  handle.addEventListener('touchstart', startDrag, { passive: false });
+  window.addEventListener('touchmove', drag, { passive: false });
+  window.addEventListener('touchend', endDrag);
+
+  // Click on slider to jump
+  slider.addEventListener('click', (event) => {
+    if (event.target === handle || event.target.closest('.slider-handle')) return;
+    const clientX = event.clientX;
+    updatePosition(clientX);
+  });
+
+  // Keyboard accessibility
+  handle.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      const rect = slider.getBoundingClientRect();
+      const currentLeft = handle.offsetLeft;
+      const step = rect.width * 0.02;
+      let newLeft = currentLeft - step;
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > rect.width) newLeft = rect.width;
+      const percentage = (newLeft / rect.width) * 100;
+      updatePosition(handle.getBoundingClientRect().left + (newLeft - currentLeft));
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      const rect = slider.getBoundingClientRect();
+      const currentLeft = handle.offsetLeft;
+      const step = rect.width * 0.02;
+      let newLeft = currentLeft + step;
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > rect.width) newLeft = rect.width;
+      const percentage = (newLeft / rect.width) * 100;
+      updatePosition(handle.getBoundingClientRect().left + (newLeft - currentLeft));
+    }
+  });
+
+  handle.setAttribute('tabindex', '0');
+  handle.setAttribute('role', 'separator');
+  handle.setAttribute('aria-label', 'Before/after comparison slider. Use left and right arrow keys to adjust.');
+
+  // Initial position: 50%
+  updatePosition(slider.getBoundingClientRect().left + slider.offsetWidth / 2);
 }

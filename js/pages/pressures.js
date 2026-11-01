@@ -11,6 +11,28 @@ import {
   getDataSource,
 } from "../data/placeholders.js";
 
+import {
+  renderImageAttribution,
+} from "../data/image-attribution.js";
+
+const PRESSURE_IMAGES = {
+  "01": "congo-agriculture-manioc.jpg",
+  "02": "congo-agriculture-manioc.jpg",
+  "03": "congo-road-construction.jpg",
+  "04": "congo-logging-road.jpg",
+  "05": "congo-road-construction.jpg",
+  "06": "congo-agriculture-manioc.jpg",
+};
+
+const PRESSURE_IMAGE_KEYS = {
+  "01": "congo-agriculture-manioc",
+  "02": "congo-agriculture-manioc",
+  "03": "congo-road-construction",
+  "04": "congo-logging-road",
+  "05": "congo-road-construction",
+  "06": "congo-agriculture-manioc",
+};
+
 const PRESSURES = [
   {
     number: "01",
@@ -104,7 +126,47 @@ const PRESSURES = [
   },
 ];
 
+function escapeHTML(value = '') {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const entities = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    };
+    return entities[character] || character;
+  });
+}
+
 function renderPressureCard(item) {
+  const imageFile = PRESSURE_IMAGES[item.number];
+  const imageKey = PRESSURE_IMAGE_KEYS[item.number];
+  const imageHtml = imageFile
+    ? `
+      <div class="pressure-card-image">
+        <img
+          src="assets/images/nasa/${imageFile}"
+          alt="${escapeHTML(item.title)}"
+          loading="lazy"
+        />
+      </div>
+      <div class="image-attribution" style="margin-top:8px;">
+        <span>Image:</span>
+        NASA Earth Observatory · Nov 27, 2019 &middot;
+        <span>Source:</span>
+        <a
+          href="https://science.nasa.gov/blogs/earth-matters/2019/11/27/building-roads-in-the-congo-rainforest/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          NASA Earth Observatory
+        </a>
+        &middot; NASA imagery is public domain. Credit: NASA.
+      </div>
+    `
+    : '';
+
   return `
     <article class="pressure-card">
       <div class="pressure-card-top">
@@ -113,6 +175,7 @@ function renderPressureCard(item) {
       </div>
 
       <h3>${item.title}</h3>
+      ${imageHtml}
       <p>${item.description}</p>
 
       <div class="pressure-mechanisms">

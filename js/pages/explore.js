@@ -14,6 +14,10 @@ import {
   callout,
 } from '../components/placeholder.js';
 
+import {
+  renderImageAttribution,
+} from '../data/image-attribution.js';
+
 export function render() {
   return `
     <div class="page">
@@ -145,10 +149,28 @@ export function render() {
             </div>
 
             <div class="story-visual">
+              <img
+                src="assets/images/nasa/congo-gorilla-habitat.jpg"
+                alt="Road encroaching on gorilla habitat in the Congo Basin rainforest, Democratic Republic of the Congo"
+                loading="lazy"
+              />
               <div class="visual-caption">
                 The DRC focus: understanding environmental change
                 across different landscapes and scales.
               </div>
+            </div>
+            <div class="image-attribution">
+              <span>Image:</span>
+              Building Roads in the Congo Rainforest · Nov 27, 2019 &middot;
+              <span>Source:</span>
+              <a
+                href="https://science.nasa.gov/blogs/earth-matters/2019/11/27/building-roads-in-the-congo-rainforest/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NASA Earth Observatory
+              </a>
+              &middot; NASA imagery is public domain. Credit: NASA.
             </div>
 
           </div>

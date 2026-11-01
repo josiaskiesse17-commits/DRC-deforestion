@@ -1,254 +1,283 @@
+/*
+ * DRC-deforestation
+ * Learn & Act
+ *
+ * Educational explainers, conservation responses, sustainable alternatives,
+ * and practical actions. No unverified statistics are presented as facts.
+ */
+
 import {
   pageIntro,
   sectionHeading,
   callout,
-} from "../components/placeholder.js";
+} from '../components/placeholder.js';
 
-const LEARNING_TOPICS = [
-  {
-    number: "01",
-    title: "Understand forest ecosystems",
-    description:
-      "Forests are living systems. They support biodiversity, regulate parts of the water cycle, store carbon, influence local and regional climates, and provide resources and livelihoods.",
-    details: [
-      "Different forest types have different ecological characteristics.",
-      "Forest condition involves more than the presence or absence of trees.",
-      "Biodiversity, ecosystem structure, and ecological processes all matter.",
-    ],
-  },
-  {
-    number: "02",
-    title: "Understand why forests change",
-    description:
-      "Forest change can result from interacting environmental and human processes. The same activity can have different consequences depending on location, intensity, duration, and management.",
-    details: [
-      "Agricultural conversion can replace forest with another land use.",
-      "Selective harvesting can alter forest condition without clearing all trees.",
-      "Fire, infrastructure, and extraction activities require context-specific assessment.",
-    ],
-  },
-  {
-    number: "03",
-    title: "Understand the consequences",
-    description:
-      "Environmental change can affect ecological systems and the people who depend on them. Consequences vary with the type and scale of disturbance.",
-    details: [
-      "Habitat loss and fragmentation can affect species and ecological connectivity.",
-      "Changes in vegetation can influence carbon storage and local environmental conditions.",
-      "Soil and water systems can be affected by changes in land cover and land management.",
-      "Communities can face consequences for livelihoods and access to natural resources.",
-    ],
-  },
-  {
-    number: "04",
-    title: "Understand the solutions",
-    description:
-      "There is no single intervention that addresses every source of forest pressure. Effective responses need to reflect local conditions, community priorities, economic realities, and ecological evidence.",
-    details: [
-      "Support sustainable agricultural practices and land-use planning.",
-      "Improve access to reliable and sustainable household energy.",
-      "Strengthen responsible resource management and environmental oversight.",
-      "Support conservation initiatives that involve local communities.",
-    ],
-  },
-];
-
-const ACTION_AREAS = [
-  {
-    title: "Learn before sharing",
-    description:
-      "Check the source, date, geographic coverage, and methodology behind environmental claims. Avoid sharing dramatic figures without understanding what they measure.",
-    actions: [
-      "Read the original source when possible.",
-      "Check whether a figure describes forest area, tree-cover loss, or another indicator.",
-      "Look for the time period and geographic definition.",
-    ],
-  },
-  {
-    title: "Support informed local initiatives",
-    description:
-      "Environmental solutions are more effective when they account for the needs and knowledge of the people living in affected landscapes.",
-    actions: [
-      "Learn about conservation organisations working in the region.",
-      "Look for community-led and locally accountable initiatives.",
-      "Evaluate claims about project impact before promoting them.",
-    ],
-  },
-  {
-    title: "Make responsible everyday choices",
-    description:
-      "Consumption choices can be part of broader efforts to reduce pressure on natural resources. Their impact depends on supply chains, local alternatives, and the choices actually available.",
-    actions: [
-      "Learn about the origins of products where information is available.",
-      "Avoid wasting resources where practical.",
-      "Support credible efforts toward responsible production and sourcing.",
-    ],
-  },
-  {
-    title: "Contribute knowledge responsibly",
-    description:
-      "Useful environmental information can come from research, observation, education, and community participation. It should be documented carefully and should not expose people or sensitive locations to harm.",
-    actions: [
-      "Use reputable datasets and clearly identify their limitations.",
-      "Document the date and location of observations appropriately.",
-      "Respect community consent and sensitive ecological information.",
-    ],
-  },
-];
-
-const GLOSSARY = [
-  {
-    term: "Forest area",
-    definition:
-      "An area classified as forest under a stated definition and measurement method. Definitions can differ between organisations and datasets.",
-  },
-  {
-    term: "Tree cover",
-    definition:
-      "The proportion of ground covered by the vertical projection of tree crowns, according to a specified threshold and methodology.",
-  },
-  {
-    term: "Tree-cover loss",
-    definition:
-      "A detected reduction or removal of tree cover within a dataset's defined observation period. It is not automatically equivalent to permanent deforestation.",
-  },
-  {
-    term: "Deforestation",
-    definition:
-      "The conversion of forest to another land use, as defined by the relevant methodology. Temporary canopy disturbance and permanent conversion should not be treated as identical.",
-  },
-  {
-    term: "Forest degradation",
-    definition:
-      "A decline in forest condition or ecological quality that does not necessarily result in complete forest conversion.",
-  },
-  {
-    term: "Fragmentation",
-    definition:
-      "The division of continuous habitat into smaller or more isolated patches, potentially affecting ecological connectivity.",
-  },
-];
-
-function renderLearningTopic(topic) {
-  return `
-    <article class="learning-topic">
-      <span class="learning-number">${topic.number}</span>
-      <div>
-        <h3>${topic.title}</h3>
-        <p>${topic.description}</p>
-        <ul class="feature-list">
-          ${topic.details.map((detail) => `<li>${detail}</li>`).join("")}
-        </ul>
-      </div>
-    </article>
-  `;
-}
-
-function renderActionArea(area, index) {
-  return `
-    <article class="action-card">
-      <span class="action-index">${String(index + 1).padStart(2, "0")}</span>
-      <h3>${area.title}</h3>
-      <p>${area.description}</p>
-      <h4>What you can do</h4>
-      <ul class="feature-list">
-        ${area.actions.map((action) => `<li>${action}</li>`).join("")}
-      </ul>
-    </article>
-  `;
-}
-
-function renderGlossaryItem(item) {
-  return `
-    <article class="glossary-item">
-      <h3>${item.term}</h3>
-      <p>${item.definition}</p>
-    </article>
-  `;
-}
+import {
+  renderImageAttribution,
+} from '../data/image-attribution.js';
 
 export function render() {
   return `
-    ${pageIntro({
-      eyebrow: "Knowledge and action",
-      title: "A better understanding leads to better action",
-      description:
-        "The Congo Basin's forests are connected to biodiversity, climate, water, economies, and communities. Understanding these relationships helps us move beyond simplified explanations and toward more informed decisions.",
-    })}
+    <div class="page">
 
-    <section class="section">
-      <div class="container">
-        ${sectionHeading({
-          eyebrow: "Build your understanding",
-          title: "Four foundations of forest knowledge",
-          description:
-            "Start with the ecosystem, understand the pressures, examine the consequences, and consider responses.",
-        })}
+      ${pageIntro({
+        eyebrow: 'Knowledge and action',
+        title: 'A better understanding leads to better action',
+        description:
+          'The Congo Basin&rsquo;s forests are connected to biodiversity, climate, water, economies, and communities. Understanding these relationships helps us move beyond simplified explanations and toward more informed decisions.',
+      })}
 
-        <div class="learning-timeline">
-          ${LEARNING_TOPICS.map(renderLearningTopic).join("")}
+      <!-- BUILD UNDERSTANDING -->
+      <section class="section">
+        <div class="container">
+          ${sectionHeading({
+            eyebrow: 'Build your understanding',
+            title: 'Four foundations of forest knowledge',
+            description:
+              'Start with the ecosystem, understand the pressures, examine the consequences, and consider responses.',
+          })}
+
+          <div class="content-grid grid-3">
+            <article class="card card-hover">
+              <span class="card-number">01</span>
+              <span class="kicker">Ecosystems</span>
+              <h3>Understand forest ecosystems</h3>
+              <p>
+                Forests are living systems. They support biodiversity,
+                regulate parts of the water cycle, store carbon, influence
+                local and regional climates, and provide resources and
+                livelihoods.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">02</span>
+              <span class="kicker">Change</span>
+              <h3>Understand why forests change</h3>
+              <p>
+                Forest change can result from interacting environmental and
+                human processes. The same activity can have different
+                consequences depending on location, intensity, duration, and
+                management.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">03</span>
+              <span class="kicker">Effects</span>
+              <h3>Understand the consequences</h3>
+              <p>
+                Environmental change can affect ecological systems and the
+                people who depend on them. Consequences vary with the type
+                and scale of disturbance.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">04</span>
+              <span class="kicker">Responses</span>
+              <h3>Understand the solutions</h3>
+              <p>
+                There is no single intervention that addresses every source
+                of forest pressure. Effective responses need to reflect
+                local conditions, community priorities, economic realities,
+                and ecological evidence.
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-soft">
-      <div class="container">
-        ${sectionHeading({
-          eyebrow: "From knowledge to action",
-          title: "Practical ways to contribute",
-          description:
-            "Meaningful action does not always require a large organisation or a technical background. It starts with informed choices and responsible participation.",
-        })}
+      <!-- TAKE ACTION -->
+      <section class="section section-soft">
+        <div class="container">
+          ${sectionHeading({
+            eyebrow: 'From knowledge to action',
+            title: 'Practical ways to contribute',
+            description:
+              'Meaningful action does not always require a large organisation or a technical background. It starts with informed choices and responsible participation.',
+          })}
 
-        <div class="action-grid">
-          ${ACTION_AREAS.map(renderActionArea).join("")}
+          <div class="content-grid grid-3">
+            <article class="card card-hover">
+              <span class="card-number">01</span>
+              <span class="kicker">Learn first</span>
+              <h3>Learn before sharing</h3>
+              <p>
+                Check the source, date, geographic coverage, and methodology
+                behind environmental claims. Avoid sharing dramatic figures
+                without understanding what they measure.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">02</span>
+              <span class="kicker">Support local</span>
+              <h3>Support informed local initiatives</h3>
+              <p>
+                Environmental solutions are more effective when they account
+                for the needs and knowledge of the people living in affected
+                landscapes.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">03</span>
+              <span class="kicker">Consume</span>
+              <h3>Make responsible everyday choices</h3>
+              <p>
+                Consumption choices can be part of broader efforts to reduce
+                pressure on natural resources. Their impact depends on supply
+                chains, local alternatives, and the choices actually
+                available.
+              </p>
+            </article>
+
+            <article class="card card-hover">
+              <span class="card-number">04</span>
+              <span class="kicker">Contribute</span>
+              <h3>Contribute knowledge responsibly</h3>
+              <p>
+                Useful environmental information can come from research,
+                observation, education, and community participation. It
+                should be documented carefully and should not expose people
+                or sensitive locations to harm.
+              </p>
+            </article>
+          </div>
+
+          <div class="mt-4">
+            ${callout({
+              type: 'info',
+              title: 'Context matters',
+              message:
+                'These actions are general starting points, not a substitute for locally informed conservation programmes or public policy. Their relevance and impact depend on the circumstances in which they are applied.',
+            })}
+          </div>
         </div>
+      </section>
 
-        ${callout({
-          type: "info",
-          title: "Context matters",
-          message:
-            "These actions are general starting points, not a substitute for locally informed conservation programmes or public policy. Their relevance and impact depend on the circumstances in which they are applied.",
-        })}
-      </div>
-    </section>
+      <!-- GLOSSARY -->
+      <section class="section">
+        <div class="container">
+          ${sectionHeading({
+            eyebrow: 'Essential vocabulary',
+            title: 'Learn to read environmental information',
+            description:
+              'Some commonly used terms describe different things. Understanding the distinction helps prevent misleading comparisons.',
+          })}
 
-    <section class="section">
-      <div class="container">
-        ${sectionHeading({
-          eyebrow: "Essential vocabulary",
-          title: "Learn to read environmental information",
-          description:
-            "Some commonly used terms describe different things. Understanding the distinction helps prevent misleading comparisons.",
-        })}
+          <div class="definition-list">
+            <div class="definition-item">
+              <h3>Forest area</h3>
+              <p>
+                An area classified as forest under a stated definition and
+                measurement method. Definitions can differ between
+                organisations and datasets.
+              </p>
+            </div>
 
-        <div class="glossary-grid">
-          ${GLOSSARY.map(renderGlossaryItem).join("")}
+            <div class="definition-item">
+              <h3>Tree cover</h3>
+              <p>
+                The proportion of ground covered by the vertical projection
+                of tree crowns, according to a specified threshold and
+                methodology.
+              </p>
+            </div>
+
+            <div class="definition-item">
+              <h3>Tree-cover loss</h3>
+              <p>
+                A detected reduction or removal of tree cover within a
+                dataset&rsquo;s defined observation period. It is not
+                automatically equivalent to permanent deforestation.
+              </p>
+            </div>
+
+            <div class="definition-item">
+              <h3>Deforestation</h3>
+              <p>
+                The conversion of forest to another land use, as defined by
+                the relevant methodology. Temporary canopy disturbance and
+                permanent conversion should not be treated as identical.
+              </p>
+            </div>
+
+            <div class="definition-item">
+              <h3>Forest degradation</h3>
+              <p>
+                A decline in forest condition or ecological quality that does
+                not necessarily result in complete forest conversion.
+              </p>
+            </div>
+
+            <div class="definition-item">
+              <h3>Fragmentation</h3>
+              <p>
+                The division of continuous habitat into smaller or more
+                isolated patches, potentially affecting ecological
+                connectivity.
+              </p>
+            </div>
+          </div>
+
+          <div class="section-actions">
+            <a class="btn btn-light" href="#data-methodology">
+              Read data definitions and limitations
+            </a>
+            <a class="text-link" href="#forest-intelligence">
+              Explore forest indicators
+            </a>
+          </div>
         </div>
+      </section>
 
-        <div class="section-actions">
-          <a class="btn btn-primary" href="#data-methodology">
-            Read data definitions and limitations
-          </a>
-          <a class="text-link" href="#forest-intelligence">
-            Explore forest indicators
-          </a>
+      <!-- CLOSING -->
+      <section class="cta-section">
+        <div class="container cta-inner">
+          <div class="image-feature" style="min-height:300px; flex-shrink:0;">
+            <img
+              src="assets/images/nasa/congo-abandoned-road.jpg"
+              alt="Abandoned road overgrown with regenerating vegetation, showing forest recovery in the Republic of Congo"
+              loading="lazy"
+              style="width:100%; height:100%; object-fit:cover;"
+            />
+            <div class="visual-caption" style="position:static; padding:16px; background:rgba(16, 44, 37, 0.85); border:none; margin:0;">
+              Forest regeneration on an abandoned road shows how ecosystems
+              can recover when pressures are reduced.
+            </div>
+          </div>
+          <div class="image-attribution" style="margin-top:12px; margin-bottom:24px;">
+            <span>Image:</span>
+            Building Roads in the Congo Rainforest · Nov 27, 2019 &middot;
+            <span>Source:</span>
+            <a
+              href="https://science.nasa.gov/blogs/earth-matters/2019/11/27/building-roads-in-the-congo-rainforest/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              NASA Earth Observatory
+            </a>
+            &middot; NASA imagery is public domain. Credit: NASA.
+          </div>
+          <div>
+            <span class="eyebrow">The bigger picture</span>
+            <h2>
+              Protecting forests requires knowledge, cooperation, and
+              long-term commitment.
+            </h2>
+            <p>
+              The Congo Basin is not simply a collection of trees or a set of
+              statistics. It is a complex living landscape shaped by
+              ecological processes and the people who depend on it.
+            </p>
+          </div>
+          <a class="btn btn-light" href="#explore">Continue exploring</a>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-dark">
-      <div class="container closing-message">
-        <span class="eyebrow">The bigger picture</span>
-        <h2>Protecting forests requires knowledge, cooperation, and long-term commitment.</h2>
-        <p>
-          The Congo Basin is not simply a collection of trees or a set of
-          statistics. It is a complex living landscape shaped by ecological
-          processes and the people who depend on it.
-        </p>
-        <a class="btn btn-light" href="#explore">Continue exploring</a>
-      </div>
-    </section>
+    </div>
   `;
 }
 

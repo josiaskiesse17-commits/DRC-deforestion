@@ -12,12 +12,22 @@ import {
   statusBadge,
 } from '../components/placeholder.js';
 
+import {
+  renderImageAttribution,
+} from '../data/image-attribution.js';
+
 export function render() {
   return `
     <div class="page">
 
       <!-- HERO -->
       <section class="hero">
+        <img
+          src="assets/images/nasa/congo-forest-stream.jpg"
+          alt="Tropical rainforest near a stream in the Congo Basin, Republic of Congo"
+          class="hero-bg-image"
+          loading="eager"
+        />
         <div class="hero-inner">
           <div class="hero-content">
 
@@ -51,6 +61,19 @@ export function render() {
 
         <div class="hero-caption">
           Congo Basin · Democratic Republic of the Congo
+        </div>
+        <div class="image-attribution">
+          <span>Image:</span>
+          NASA Earth Observatory · Nov 27, 2019 &middot;
+          <span>Source:</span>
+          <a
+            href="https://science.nasa.gov/blogs/earth-matters/2019/11/27/building-roads-in-the-congo-rainforest/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            NASA Earth Observatory
+          </a>
+          &middot; NASA imagery is public domain. Credit: NASA.
         </div>
       </section>
 
@@ -225,10 +248,29 @@ export function render() {
           <div class="story-section">
 
             <div class="story-visual">
+              <img
+                src="assets/images/nasa/kisangani-forest-2024-landsat.jpg"
+                alt="Landsat satellite image showing forest change around Kisangani, Tshopo province, Democratic Republic of the Congo"
+                loading="lazy"
+              />
               <div class="visual-caption">
-                Forest landscapes are complex systems,
-                not simply areas covered by trees.
+                Satellite observations reveal gradual but persistent
+                forest change around Kisangani, one of the DRC&rsquo;s
+                largest cities.
               </div>
+            </div>
+            <div class="image-attribution">
+              <span>Image:</span>
+              Reshaping the Forests Around Kisangani · Sep 22, 2025 &middot;
+              <span>Source:</span>
+              <a
+                href="https://science.nasa.gov/earth/earth-observatory/reshaping-the-forests-around-kisangani-154817/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NASA Earth Observatory
+              </a>
+              &middot; NASA imagery is public domain. Credit: NASA Earth Observatory / Wanmei Liang, using forest change data from University of Maryland.
             </div>
 
             <div class="story-copy">
