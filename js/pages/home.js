@@ -22,12 +22,6 @@ export function render() {
 
       <!-- HERO -->
       <section class="hero">
-        <img
-          src="assets/images/nasa/congo-forest-stream.jpg"
-          alt="Tropical rainforest near a stream in the Congo Basin, Republic of Congo"
-          class="hero-bg-image"
-          loading="eager"
-        />
         <div class="hero-inner">
           <div class="hero-content">
 
@@ -57,23 +51,6 @@ export function render() {
             </div>
 
           </div>
-        </div>
-
-        <div class="hero-caption">
-          Congo Basin · Democratic Republic of the Congo
-        </div>
-        <div class="image-attribution">
-          <span>Image:</span>
-          NASA Earth Observatory · Nov 27, 2019 &middot;
-          <span>Source:</span>
-          <a
-            href="https://science.nasa.gov/blogs/earth-matters/2019/11/27/building-roads-in-the-congo-rainforest/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            NASA Earth Observatory
-          </a>
-          &middot; NASA imagery is public domain. Credit: NASA.
         </div>
       </section>
 
