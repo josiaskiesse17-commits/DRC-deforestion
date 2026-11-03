@@ -10,13 +10,8 @@
 import {
   pageIntro,
   sectionHeading,
-  mapPlaceholder,
   callout,
 } from '../components/placeholder.js';
-
-import {
-  renderImageAttribution,
-} from '../data/image-attribution.js';
 
 export function render() {
   return `
@@ -33,15 +28,34 @@ export function render() {
       <!-- MAP -->
       <section class="container">
 
-        ${mapPlaceholder({
-          title: 'Congo Basin geographical explorer',
-          description:
-            'An interactive map with verified country boundaries, basin boundaries and environmental layers is planned. No geographical measurements are currently being displayed.',
-        })}
+        <div class="map-wrapper">
+          <div id="explore-map" class="explore-map" aria-label="Congo Basin interactive map"></div>
+          <div class="map-attribution">
+            <span>Basemap:</span>
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+          </div>
+          <div class="map-layer-controls">
+            <button class="layer-toggle layer-toggle-active" data-layer="basin" aria-pressed="true">
+              Congo Basin forest region
+            </button>
+            <button class="layer-toggle" data-layer="drc" aria-pressed="false">
+              DRC national boundary
+            </button>
+            <button class="layer-toggle" data-layer="river" aria-pressed="false">
+              Congo River Basin (drainage)
+            </button>
+            <button class="layer-toggle" data-layer="none" aria-pressed="false">
+              None
+            </button>
+          </div>
+        </div>
 
         <p class="map-disclaimer">
-          Planned map layers: national boundaries, Congo River Basin,
-          forest-region boundaries and selected environmental datasets.
+          The Congo Basin forest region (ecological definition) and the
+          Congo River Basin (hydrological definition) are distinct
+          geographical concepts. The map displays simplified boundaries
+          for illustrative purposes. DRC national boundary data from
+          Natural Earth. Basemap from OpenStreetMap.
         </p>
 
       </section>

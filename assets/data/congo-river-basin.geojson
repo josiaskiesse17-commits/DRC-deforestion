@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Congo River Basin (drainage)",
+        "layer": "congo-river-basin",
+        "source": "Simplified geographic representation",
+        "description": "Simplified boundary of the Congo River drainage basin (hydrological definition). Distinct from the Congo Basin forest region.",
+        "note": "Simplified representation for illustrative purposes"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              11.0,
+              5.5
+            ],
+            [
+              16.0,
+              7.0
+            ],
+            [
+              23.0,
+              7.0
+            ],
+            [
+              27.0,
+              5.0
+            ],
+            [
+              31.0,
+              3.0
+            ],
+            [
+              31.5,
+              0.0
+            ],
+            [
+              30.0,
+              -7.0
+            ],
+            [
+              29.0,
+              -13.0
+            ],
+            [
+              23.0,
+              -14.0
+            ],
+            [
+              18.0,
+              -13.0
+            ],
+            [
+              14.0,
+              -11.0
+            ],
+            [
+              12.0,
+              -8.0
+            ],
+            [
+              12.0,
+              -6.0
+            ],
+            [
+              10.0,
+              -4.0
+            ],
+            [
+              10.0,
+              5.5
+            ],
+            [
+              11.0,
+              5.5
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
